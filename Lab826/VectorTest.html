@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <script src = "JSVector.js"> </script>
+</head>
+<script>
+  var v1 = new JSVector(3,4);
+  var v2 = new JSVector(6, -8);
+
+  console.log(v1.toString());
+  console.log(v2.toString());
+
+  v1.add(v2);
+  console.log("Ex: 9,-4");
+  console.log("" + v1);
+  v1.sub(v2);
+
+  v1.sub(v2);
+  console.log("Ex: -3,12");
+  console.log("" + v1);
+  v1.add(v2);
+
+  v1.multiply(v2);
+  console.log("Ex: 18,-32");
+  console.log("" + v1);
+  v1.divide(v2);
+
+  vtemp = v1.copy();
+  vtemp.limit(100);
+  console.log("Mag Ex: 100");
+  console.log("" + vtemp);
+
+  v1.setMagnitude(vtemp.getMagnitude());
+  console.log("Mag Ex: 100");
+  console.log("" + v1);
+
+  v1.setDirection(1);
+  console.log("Dir Ex: 1");
+  console.log("" + v1);
+
+  v1.rotate(1);
+  console.log("Dir Ex: 2");
+  console.log("" + v1);
+</script>
