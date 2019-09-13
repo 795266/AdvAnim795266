@@ -1,0 +1,54 @@
+function Ball() {
+  this.radius = 30;
+  var x = Math.random() * (canvas.width - 2 * this.radius) + this.radius;
+  var y = Math.random() * (canvas.height - 2 * this.radius) + this.radius;
+  this.location = new JSVector(x, y);
+  x = Math.random() * (3) - 1.5;
+  y = Math.random() * 3 - 1.5;
+  this.velocity = new JSVector(x, y);
+  this.color = 'blue';
+}
+
+Ball.prototype.update = function() {
+  this.location.add(this.velocity);
+}
+
+Ball.prototype.checkEdges = function() {
+  if(this.location.x > canvas.width - this.radius || this.location.x < this.radius) {
+    this.velocity.x = -this.velocity.x;
+  }
+  if(this.location.y > canvas.height - this.radius || this.location.y < this.radius) {
+    this.velocity.y = -this.velocity.y;
+  }
+}
+
+Ball.prototype.check = function(other) {
+  if((this.location.x + this.velocity.x) - (other.location.x + other.velocity.x) < this.radius * 2) {
+    if((this.location.y + this.velocity.y) - (other.location.y + other.velocity.y) < this.radius * 2) {
+      return true;
+    }
+  }
+}
+
+Ball.prototype.checkOthers = function(other) {
+  if(this.check(other) == true) {
+    this.velocity.x = -this.velocity.x;
+    this.velocity.y = -this.velocity.y;
+  }
+}
+
+Ball.prototype.draw = function() {
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = this.color;
+  ctx.beginPath();
+  ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
+  ctx.fill();
+  ctx.stroke();
+}
+
+Ball.prototype.run = function() {
+  this.update();
+  this.checkEdges();
+  this.checkOthers();
+  this.draw();
+}

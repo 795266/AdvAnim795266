@@ -6,6 +6,7 @@
 <script>
   var v1 = new JSVector(3,4);
   var v2 = new JSVector(6, -8);
+  var v3 = new JSVector(0,0);
 
   console.log(v1.toString());
   console.log(v2.toString());
@@ -20,18 +21,18 @@
   console.log("" + v1);
   v1.add(v2);
 
-  v1.multiply(v2);
-  console.log("Ex: 18,-32");
+  v1.multiply(2);
+  console.log("Ex: 6,8");
   console.log("" + v1);
   v1.divide(v2);
 
-  vtemp = v1.copy();
-  vtemp.limit(100);
-  console.log("Mag Ex: 100");
+  v3 = v1.copy();
+  v3.limit(80);
+  console.log("Mag Ex: 80");
   console.log("" + vtemp);
 
-  v1.setMagnitude(vtemp.getMagnitude());
-  console.log("Mag Ex: 100");
+  v1.setMagnitude(v3.getMagnitude());
+  console.log("Mag Ex: 80");
   console.log("" + v1);
 
   v1.setDirection(1);
