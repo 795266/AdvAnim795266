@@ -1,3 +1,8 @@
+var radius;
+var location;
+var velocity;
+var color;
+
 function Ball() {
   this.radius = 30;
   var x = Math.random() * (canvas.width - 2 * this.radius) + this.radius;
@@ -21,8 +26,8 @@ Ball.prototype.checkEdges = function() {
     this.velocity.y = -this.velocity.y;
   }
 }
-
-Ball.prototype.check = function(other) {
+/*
+Ball.prototype.check = function(Ball other) {
   if((this.location.x + this.velocity.x) - (other.location.x + other.velocity.x) < this.radius * 2) {
     if((this.location.y + this.velocity.y) - (other.location.y + other.velocity.y) < this.radius * 2) {
       return true;
@@ -30,13 +35,13 @@ Ball.prototype.check = function(other) {
   }
 }
 
-Ball.prototype.checkOthers = function(other) {
+Ball.prototype.checkOthers = function(Ball other) {
   if(this.check(other) == true) {
     this.velocity.x = -this.velocity.x;
     this.velocity.y = -this.velocity.y;
   }
 }
-
+*/
 Ball.prototype.draw = function() {
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
@@ -49,6 +54,6 @@ Ball.prototype.draw = function() {
 Ball.prototype.run = function() {
   this.update();
   this.checkEdges();
-  this.checkOthers();
+//  this.checkOthers();
   this.draw();
 }
