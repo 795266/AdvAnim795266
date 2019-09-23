@@ -23,15 +23,39 @@ Ball.prototype.update = function() {
   this.location.add(this.velocity);
   this.velocity.add(this.acceleration);
   this.acceleration.multiply(0);
+  this.velocity.limit(20);
 }
 
 Ball.prototype.checkEdges = function() {
-  if(this.location.x > canvas.width - this.radius || this.location.x < this.radius) {
-    this.velocity.x = -this.velocity.x;
+  if(this.location.x > canvas.width - this.radius) {
+    this.velocity.x = -Math.abs(this.velocity.x);
   }
-  if(this.location.y > canvas.height - this.radius || this.location.y < this.radius) {
-    this.velocity.y = -this.velocity.y;
-    this.acceleration.y = this.acceleration.y;
+  if(this.location.x < this.radius) {
+    this.velocity.x = Math.abs(this.velocity.x)
+  }
+  if(this.location.y > canvas.height - this.radius) {
+    this.velocity.y = -Math.abs(this.velocity.y);
+  }
+  if(this.location.y < this.radius) {
+    this.velocity.y = Math.abs(this.velocity.y);
+  }
+}
+
+Ball.prototype.attraction = function() {
+  var attract = JSVector.subGetNew(bigBall.location, this.location);
+  attract.normalize();
+  attract.multiply(3);
+  if(this.location.distance(bigBall.location) < 200) {
+    this.applyForce(attract);
+  }
+}
+
+Ball.prototype.repulsion = function() {
+  var repel = JSVector.subGetNew(this.location, bigBall.location);
+  repel.normalize();
+  //attract.multiply(5);
+  if(this.location.distance(bigBall.location) < 200) {
+    this.applyForce(repel);
   }
 }
 /*
@@ -64,18 +88,28 @@ Ball.prototype.draw = function() {
   ctx.stroke();
 }
 
-Ball.prototype.run = function() {
+Ball.prototype.runA = function() {
   this.update();
   this.checkEdges();
   //this.checkOthers();
   //this.applyForce(gravity);
-  //this.applyForce(attraction); fix this at start of class
+  this.attraction();
+  //this.repulsion();
+  this.draw();
+}
+
+Ball.prototype.runR = function() {
+  this.update();
+  this.checkEdges();
+  //this.checkOthers();
+  //this.applyForce(gravity);
+  this.repulsion();
   this.draw();
 }
 
 Ball.prototype.runBB = function() {
-  this.update();
-  this.checkEdges();
+  //this.update();
+  //this.checkEdges();
   //this.checkOthers();
   //this.applyForce(gravity);
   this.draw();
