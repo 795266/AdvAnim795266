@@ -20,10 +20,11 @@ function Ball(mass) {
 
 
 Ball.prototype.update = function() {
-  this.location.add(this.velocity);
   this.velocity.add(this.acceleration);
+  this.velocity.limit(2);
+  this.location.add(this.velocity);
   this.acceleration.multiply(0);
-  this.velocity.limit(20);
+
 }
 
 Ball.prototype.checkEdges = function() {
@@ -44,7 +45,7 @@ Ball.prototype.checkEdges = function() {
 Ball.prototype.attraction = function() {
   var attract = JSVector.subGetNew(bigBall.location, this.location);
   attract.normalize();
-  attract.multiply(3);
+  attract.multiply(.3);
   if(this.location.distance(bigBall.location) < 200) {
     this.applyForce(attract);
   }
