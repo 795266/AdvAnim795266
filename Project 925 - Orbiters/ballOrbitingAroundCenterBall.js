@@ -15,8 +15,9 @@ function init() {
   cnv.style.border = "solid black 2px";
   cnv.style.backgroundColor = 'rgba(0,44,55,.5)';
 
-  planet = new Planet(50, 'blue');
-
+  console.log("create planet");
+  planet = new Planet(50, 'orange');
+  
   animate();
 }
 
@@ -26,4 +27,5 @@ function animate() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
   planet.run();
+  console.log("run planet")
 }
