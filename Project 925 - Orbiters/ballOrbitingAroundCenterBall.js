@@ -5,6 +5,7 @@ var windowWidth = 800;
 var windowHeight = 600;
 
 var planet;
+var planet1;
 
 function init() {
   canvas = document.getElementById('cnv');
@@ -17,6 +18,8 @@ function init() {
 
   console.log("create planet");
   planet = new Planet(20, 'blue', 20, 'green', 5, .05, 75);
+  planet1 = new Planet(20, 'blue', 20, 'green', 5, .05, 75);
+
 
   animate();
 }
@@ -27,5 +30,6 @@ function animate() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
   planet.run();
+  planet1.run();
   console.log("run planet")
 }
