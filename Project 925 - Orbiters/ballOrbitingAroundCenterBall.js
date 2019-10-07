@@ -16,8 +16,8 @@ function init() {
   cnv.style.backgroundColor = 'rgba(0,44,55,.5)';
 
   console.log("create planet");
-  planet = new Planet(50, 'orange');
-  
+  planet = new Planet(20, 'blue', 20, 'green', 5, .05, 75);
+
   animate();
 }
 

@@ -5,7 +5,7 @@ var location;
 var velocity;
 var acceleration;
 
-function Planet(radius, color) {
+function Planet(radius, color, ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius) {
   this.color = color;
   this.radius = radius;
   this.arms = [];
@@ -19,18 +19,18 @@ function Planet(radius, color) {
   y = 0;
   this.acceleration = new JSVector(x, y);
 
-  this.loadArms();
+  this.loadArms(ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius);
 }
 
-Planet.prototype.loadArms = function() {
+Planet.prototype.loadArms = function(ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius) {
   console.log(" load planet arms");
   var k;
   for(var i = 0; i < 10; i++) {
-    var k = new Arm(10, 'red', i*2*Math.PI/5, .01, this.location.x, this.location.y, 100)
+    var k = new Arm(ballRadius, ballColor, i*2*Math.PI/ballNumber, ballSpeed, this.location.x, this.location.y, orbitRadius)
     this.arms.push(k);
   }
 }
-
+//10, 'red', i*2*Math.PI/5, .01, 100
 Planet.prototype.runArms = function() {
   for(var i = 0; i < 5; i++) {
     this.arms[i].run(this.location.x, this.location.y)
