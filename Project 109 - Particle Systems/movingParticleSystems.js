@@ -27,6 +27,6 @@ function animate() {
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  system.run();
-  //console.log("run planet")
+  console.log("run animation")
+  system.update();
 }

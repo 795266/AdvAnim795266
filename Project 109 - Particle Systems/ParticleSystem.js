@@ -19,6 +19,18 @@ function ParticleSystem(radius, color) {
   y = 0;
   this.acceleration = new JSVector(x, y);
 }
+/*
+function ParticleSystem(radius, color, locX, locY, velX, velY) {
+  this.color = color;
+  this.radius = radius;
+  this.pList = [];
+  this.location = new JSVector(locX, locY);
+  this.velocity = new JSVector(velX, velY);
+  x = 0;
+  y = 0;
+  this.acceleration = new JSVector(x, y);
+}
+*/
 
 ParticleSystem.prototype.update = function() {
   this.velocity.add(this.acceleration);
@@ -26,10 +38,28 @@ ParticleSystem.prototype.update = function() {
   this.velocity.limit(2);
   this.acceleration.multiply(0);
 
-  this.pList.push(new Particles(10, "green", 5, this.location.x, this.location.y, 255));//input parameters for particles
+  console.log("create new particles")
+  var x = (Math.random() * 100);
+  if (x < 30) {
+    this.pList.push(new Particles(2, "green", 5, this.location.x, this.location.y, 150, false));//input parameters for particles
+  }
+  if (x > 30 && x < 40) {
+    this.pList.push(new Particles(5, "orange", 10, this.location.x, this.location.y, 50, false));//input parameters for particles
+  }
+  if (x > 40 && x < 45) {
+    this.pList.push(new Particles(5, "blue", 15, this.location.x, this.location.y, 255, true));//input parameters for particles
+  }
 
-  for(var i = this.pList.size(); i > 0; i--) {
-    pList.get(i).run();
+  var startingLength = this.pList.length - 1
+  for(var i = startingLength - 1; i > 0; i--) {
+    if (this.pList[i].stillAlive()) {
+      this.pList[i].run();
+    } else {
+      if (this.pList[i].spawn) {
+        //System.makeNew(this.color, this.radius, this.pList[i].spawnLocationX, this.pList[i].spawnLocationY, this.pList[i].spawnVelocityX, this.pList[i].spawnVelocityY);
+      }
+      this.pList.splice(i, 1);
+    }
   }
 }
 
@@ -56,7 +86,7 @@ ParticleSystem.prototype.draw = function() {
   ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
   ctx.fill();
   ctx.stroke();
-  console.log("  planet draw");
+  console.log("particle system draw");
 }
 ParticleSystem.prototype.run = function() {
   this.update();
