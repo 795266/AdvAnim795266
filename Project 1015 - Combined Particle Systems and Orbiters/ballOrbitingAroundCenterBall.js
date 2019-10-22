@@ -4,8 +4,9 @@ var canvas;
 var windowWidth = 800;
 var windowHeight = 600;
 
-var planet;
-var planet1;
+var planetSystem; //creates a planet with revolving balls
+var system; //creates an emiter
+var planetNew; //creates a planet with stationary balls that reach out
 
 function init() {
   canvas = document.getElementById('cnv');
@@ -17,10 +18,9 @@ function init() {
   cnv.style.backgroundColor = 'rgba(0,44,55,.5)';
 
   console.log("create planet");
-  planet = new Planet(10, 'purple', 5, 'pink', 5, .03, 20);
-  planet1 = new Planet(10, 'pink', 5, 'purple', 5, .03, 20);
+  planetSystem = new PlanetSystem(2);
   system = new System(20, 'blue');
-
+  planetNew = new PlanetNew(10, 'purple', 5, 'pink', 5, 20);
 
   animate();
 }
@@ -30,8 +30,8 @@ function animate() {
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  planet.run();
-  planet1.run();
+  planetSystem.update();
   system.update();
+  planetNew.run();
   console.log("run planet")
 }

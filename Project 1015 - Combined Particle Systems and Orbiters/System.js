@@ -8,8 +8,8 @@ function System(radius, color, locX, locY, velX, velY) {
   this.color = color;
 
   this.system.push(new ParticleSystem(this.radius, color));
-  this.system.push(new ParticleSystem(this.radius, color));
-  this.system.push(new ParticleSystem(this.radius, color));
+  //this.system.push(new ParticleSystem(this.radius, color));
+  //this.system.push(new ParticleSystem(this.radius, color));
 }
 
 System.prototype.update = function() {

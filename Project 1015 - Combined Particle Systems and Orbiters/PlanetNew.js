@@ -5,7 +5,7 @@ var location;
 var velocity;
 var acceleration;
 
-function Planet(radius, color, ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius) {
+function PlanetNew(radius, color, ballRadius, ballColor, ballNumber,  orbitRadius) {
   this.color = color;
   this.radius = radius;
   this.arms = [];
@@ -19,26 +19,26 @@ function Planet(radius, color, ballRadius, ballColor, ballNumber, ballSpeed, orb
   y = 0;
   this.acceleration = new JSVector(x, y);
 
-  this.loadArms(ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius);
+  this.loadArms(ballRadius, ballColor, ballNumber, orbitRadius);
 }
 
-Planet.prototype.loadArms = function(ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius) {
+PlanetNew.prototype.loadArms = function(ballRadius, ballColor, ballNumber, orbitRadius) {
   console.log(" load planet arms");
   var k;
   for(var i = 0; i < 10; i++) {
-    var k = new Arm(ballRadius, ballColor, i*2*Math.PI/ballNumber, ballSpeed, this.location.x, this.location.y, orbitRadius)
+    var k = new ArmNew(ballRadius, ballColor, i*2*Math.PI/ballNumber, this.location.x, this.location.y, orbitRadius)
     this.arms.push(k);
   }
 }
 
-Planet.prototype.runArms = function() {
+PlanetNew.prototype.runArms = function() {
   for(var i = 0; i < 5; i++) {
     this.arms[i].run(this.location.x, this.location.y)
   }
   console.log("  planet run arms");
 }
 
-Planet.prototype.update = function() {
+PlanetNew.prototype.update = function() {
   this.velocity.add(this.acceleration);
   this.location.add(this.velocity);
   this.velocity.limit(2);
@@ -47,7 +47,7 @@ Planet.prototype.update = function() {
   this.runArms(this.location.x, this.location.y);
 }
 
-Planet.prototype.checkEdges = function() {
+PlanetNew.prototype.checkEdges = function() {
   if(this.location.x > canvas.width - this.radius) {
     this.velocity.x = -Math.abs(this.velocity.x);
   }
@@ -63,7 +63,7 @@ Planet.prototype.checkEdges = function() {
   console.log("  planet check edges")
 }
 
-Planet.prototype.draw = function() {
+PlanetNew.prototype.draw = function() {
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
   ctx.beginPath();
@@ -72,7 +72,8 @@ Planet.prototype.draw = function() {
   ctx.stroke();
   console.log("  planet draw");
 }
-Planet.prototype.run = function() {
+
+PlanetNew.prototype.run = function() {
   this.update();
   this.checkEdges();
   this.draw();

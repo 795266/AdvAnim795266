@@ -1,6 +1,6 @@
 var color;
 var radius;
-var soeed;
+var speed;
 var psX;
 var psY;
 var lifespan;
