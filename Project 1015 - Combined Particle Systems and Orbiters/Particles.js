@@ -29,6 +29,13 @@ Particles.prototype.update = function() {
   this.acceleration.multiply(0);
 
   this.lifetime = this.lifetime - 1;
+
+  if (this.spawn) {
+    this.checkEdges();
+    if (this.lifetime < 0) {
+      //System.        trying to make a recreation fear=ture, need to create a new emitter at the location of the blue ball particles
+    }
+  }
 }
 
 Particles.prototype.draw = function() {
@@ -48,11 +55,11 @@ Particles.prototype.stillAlive = function() {
   }
 }
 
-Particles.prototype.spawnLocationX = function() {
+Particles.prototype.particleLocationX = function() {
   return this.location.x;
 }
 
-Particles.prototype.spawnLocationY = function() {
+Particles.prototype.particleLocationY = function() {
   return this.location.y;
 }
 
@@ -62,6 +69,21 @@ Particles.prototype.spawnVelocityX = function() {
 
 Particles.prototype.spawnVelocityY = function() {
   return this.velocity.y;
+}
+
+Particles.prototype.checkEdges = function() {
+  if(this.location.x > canvas.width - this.radius) {
+    this.velocity.x = -Math.abs(this.velocity.x);
+  }
+  if(this.location.x < this.radius) {
+    this.velocity.x = Math.abs(this.velocity.x)
+  }
+  if(this.location.y > canvas.height - this.radius) {
+    this.velocity.y = -Math.abs(this.velocity.y);
+  }
+  if(this.location.y < this.radius) {
+    this.velocity.y = Math.abs(this.velocity.y);
+  }
 }
 
 Particles.prototype.run = function() {

@@ -27,6 +27,5 @@ function animate() {
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  console.log("run animation")
   system.update();
 }

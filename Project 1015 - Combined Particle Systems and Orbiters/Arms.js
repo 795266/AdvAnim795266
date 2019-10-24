@@ -26,7 +26,6 @@ Arm.prototype.update = function(x, y) {
   this.angle = this.angle + this.angularVelocity;
   this.location.x = this.planetX + this.rotationalRadius * Math.cos(this.angle);
   this.location.y = this.planetY + this.rotationalRadius * Math.sin(this.angle);
-  console.log("   arms update");
 }
 
 Arm.prototype.draw = function() {
@@ -36,7 +35,6 @@ Arm.prototype.draw = function() {
   ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
   ctx.fill();
   ctx.stroke();
-  console.log("   arms draw");
 }
 Arm.prototype.run = function(x, y) {
   this.update(x, y);

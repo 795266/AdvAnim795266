@@ -1,8 +1,11 @@
+var system;
+
 function PlanetSystem(number) {
   this.system = [];
-  var a = 0;
-  while(number > 0) {
-    this.system.push(new Planet(10, 'purple', 5, 'pink', 5, .03, 20)); //planet parameters
+  var a = number;
+  while(a > 0) {
+    this.system.push(new Planet(10, 'green', 5, 'red', 5, .03, 20)); //radius, color, ballRadius, ballColor, ballNumber, ballSpeed, orbitRadius
+    a = a - 1;
   }
 }
 

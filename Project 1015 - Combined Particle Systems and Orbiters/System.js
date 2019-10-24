@@ -2,19 +2,20 @@ var radius;
 var color;
 var system;
 
-function System(radius, color, locX, locY, velX, velY) {
+function System(number, locX, locY, velX, velY) {
   this.system = [];
   this.radius = radius;
   this.color = color;
 
-  this.system.push(new ParticleSystem(this.radius, color));
-  //this.system.push(new ParticleSystem(this.radius, color));
-  //this.system.push(new ParticleSystem(this.radius, color));
+  var a = number;
+  while (a > 0) {
+    this.system.push(new ParticleSystem(20, 'blue'));
+    a = a - 1;
+  }
 }
 
 System.prototype.update = function() {
   for(var i = 0; i < this.system.length; i++) {
-    console.log("run particle system")
     this.system[i].run();
   }
 }

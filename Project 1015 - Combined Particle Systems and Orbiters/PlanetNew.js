@@ -23,7 +23,6 @@ function PlanetNew(radius, color, ballRadius, ballColor, ballNumber,  orbitRadiu
 }
 
 PlanetNew.prototype.loadArms = function(ballRadius, ballColor, ballNumber, orbitRadius) {
-  console.log(" load planet arms");
   var k;
   for(var i = 0; i < 10; i++) {
     var k = new ArmNew(ballRadius, ballColor, i*2*Math.PI/ballNumber, this.location.x, this.location.y, orbitRadius)
@@ -33,9 +32,8 @@ PlanetNew.prototype.loadArms = function(ballRadius, ballColor, ballNumber, orbit
 
 PlanetNew.prototype.runArms = function() {
   for(var i = 0; i < 5; i++) {
-    this.arms[i].run(this.location.x, this.location.y)
+    this.arms[i].run(this.location.x, this.location.y);
   }
-  console.log("  planet run arms");
 }
 
 PlanetNew.prototype.update = function() {
@@ -43,7 +41,6 @@ PlanetNew.prototype.update = function() {
   this.location.add(this.velocity);
   this.velocity.limit(2);
   this.acceleration.multiply(0);
-  console.log("  update planet");
   this.runArms(this.location.x, this.location.y);
 }
 
@@ -60,7 +57,6 @@ PlanetNew.prototype.checkEdges = function() {
   if(this.location.y < this.radius) {
     this.velocity.y = Math.abs(this.velocity.y);
   }
-  console.log("  planet check edges")
 }
 
 PlanetNew.prototype.draw = function() {
@@ -70,7 +66,6 @@ PlanetNew.prototype.draw = function() {
   ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
   ctx.fill();
   ctx.stroke();
-  console.log("  planet draw");
 }
 
 PlanetNew.prototype.run = function() {

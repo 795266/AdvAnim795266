@@ -5,7 +5,7 @@ var velocity;
 var acceleration;
 var pList;
 
-function ParticleSystem(radius, color) {
+function ParticleSystem(radius, color, locX, locY, velX, velY, spawn) {
   this.color = color;
   this.radius = radius;
   this.pList = [];
@@ -18,6 +18,14 @@ function ParticleSystem(radius, color) {
   x = 0;
   y = 0;
   this.acceleration = new JSVector(x, y);
+  if(spawn) {
+    var x = locX;
+    var y = locY;
+    this.location = new JSVector(x, y);
+    x = velX;
+    y = velY;
+    this.velocity = new JSVector(x, y);
+  }
 }
 /*
 function ParticleSystem(radius, color, locX, locY, velX, velY) {
@@ -38,7 +46,6 @@ ParticleSystem.prototype.update = function() {
   this.velocity.limit(2);
   this.acceleration.multiply(0);
 
-  console.log("create new particles")
   var x = (Math.random() * 100);
   if (x < 30) {
     this.pList.push(new Particles(2, "green", 5, this.location.x, this.location.y, 150, false));//input parameters for particles
@@ -47,7 +54,7 @@ ParticleSystem.prototype.update = function() {
     this.pList.push(new Particles(5, "orange", 10, this.location.x, this.location.y, 50, false));//input parameters for particles
   }
   if (x > 40 && x < 42) {
-    this.pList.push(new Particles(5, "blue", 15, this.location.x, this.location.y, 255, true));//input parameters for particles
+    this.pList.push(new Particles(5, "blue", 15, this.location.x, this.location.y, 1000, true));//input parameters for particles
   }
 
   var startingLength = this.pList.length - 1
@@ -87,7 +94,6 @@ ParticleSystem.prototype.draw = function() {
   ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
   ctx.fill();
   ctx.stroke();
-  console.log("particle system draw");
 }
 ParticleSystem.prototype.run = function() {
   this.update();
