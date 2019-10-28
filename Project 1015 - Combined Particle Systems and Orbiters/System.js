@@ -6,7 +6,7 @@ var p2;
 var p3;
 
 function System(number, locX, locY, velX, velY) {
-  this.system = [];
+  this.system = []; //array of particle system objects
   this.radius = radius;
   this.color = color;
   this.p1 = [];
@@ -33,6 +33,7 @@ System.prototype.collectParticles = function() {
     this.system[i].returnTypeThreeParticles(); //fix this
   }
 }
+
 /*
 System.prototype.printMousePosX = function() {
     var cursorX;

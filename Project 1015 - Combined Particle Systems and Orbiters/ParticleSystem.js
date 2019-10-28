@@ -58,17 +58,17 @@ ParticleSystem.prototype.update = function() {
   if (x < 30) {
     g = new Particles(2, "green", 5, this.location.x, this.location.y, 150, false); //input parameters for particles
     this.pList1.push(g);
-    this.addTypeOneParticles(g);
+    //this.pList1.returnTypeOneParticles(g);
   }
   if (x > 30 && x < 40) {
     g = new Particles(5, "orange", 10, this.location.x, this.location.y, 50, false) //input parameters for particles
     this.pList2.push(g);
-    this.addTypeTwoParticles(g);
+    //this.pList2.returnTypeTwoParticles(g);
   }
   if (x > 40 && x < 42) {
     g = new Particles(5, "blue", 15, this.location.x, this.location.y, 1000, true) //input parameters for particles
     this.pList3.push(g);
-    this.addTypeThreeParticles(g);
+    //this.pList3.returnTypeThreeParticles(g);
   }
 
   var startingLength = this.pList1.length - 1
