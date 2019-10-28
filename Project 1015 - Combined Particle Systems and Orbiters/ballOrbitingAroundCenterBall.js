@@ -17,8 +17,8 @@ function init() {
   cnv.style.border = "solid black 2px";
   cnv.style.backgroundColor = 'rgba(0,44,55,.5)';
 
-  planetSystem = new PlanetSystem(3);
   system = new System(2);
+  planetSystem = new PlanetSystem(3);
   planetNewSystem = new PlanetNewSystem(1);
 
   animate();
@@ -29,7 +29,7 @@ function animate() {
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  planetSystem.update();
   system.update();
+  planetSystem.update();
   planetNewSystem.update();
 }

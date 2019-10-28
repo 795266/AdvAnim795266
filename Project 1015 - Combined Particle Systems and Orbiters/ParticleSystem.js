@@ -3,12 +3,20 @@ var radius;
 var location;
 var velocity;
 var acceleration;
-var pList;
+var pList1;
+var pList2;
+var pList3;
+var typeOneParticles;
+var typeTwoParticles;
+var typeThreeParticles;
+var g;
 
 function ParticleSystem(radius, color, locX, locY, velX, velY, spawn) {
   this.color = color;
   this.radius = radius;
-  this.pList = [];
+  this.pList1 = [];
+  this.pList2 = [];
+  this.pList3 = [];
   var x = Math.random() * (canvas.width - 2 * this.radius) + this.radius;
   var y = Math.random() * (canvas.height - 2 * this.radius) + this.radius;
   this.location = new JSVector(x, y);
@@ -48,29 +56,72 @@ ParticleSystem.prototype.update = function() {
 
   var x = (Math.random() * 100);
   if (x < 30) {
-    this.pList.push(new Particles(2, "green", 5, this.location.x, this.location.y, 150, false));//input parameters for particles
+    g = new Particles(2, "green", 5, this.location.x, this.location.y, 150, false); //input parameters for particles
+    this.pList1.push(g);
+    this.addTypeOneParticles(g);
   }
   if (x > 30 && x < 40) {
-    this.pList.push(new Particles(5, "orange", 10, this.location.x, this.location.y, 50, false));//input parameters for particles
+    g = new Particles(5, "orange", 10, this.location.x, this.location.y, 50, false) //input parameters for particles
+    this.pList2.push(g);
+    this.addTypeTwoParticles(g);
   }
   if (x > 40 && x < 42) {
-    this.pList.push(new Particles(5, "blue", 15, this.location.x, this.location.y, 1000, true));//input parameters for particles
+    g = new Particles(5, "blue", 15, this.location.x, this.location.y, 1000, true) //input parameters for particles
+    this.pList3.push(g);
+    this.addTypeThreeParticles(g);
   }
 
-  var startingLength = this.pList.length - 1
+  var startingLength = this.pList1.length - 1
   for(var i = startingLength - 1; i > 0; i--) {
-    if (this.pList[i].stillAlive()) {
-      this.pList[i].run();
+    if (this.pList1[i].stillAlive()) {
+      this.pList1[i].run();
     } else {
-      if (this.pList[i].spawn) {
+      if (this.pList1[i].spawn) {
         //var x = new ParticleSystem(this.color, this.radius, this.pList[i].spawnLocationX, this.pList[i].spawnLocationY, this.pList[i].spawnVelocityX, this.pList[i].spawnVelocityY);
         //x.run();
       }
-      this.pList.splice(i, 1);
+      this.pList1.splice(i, 1);
+    }
+  }
+
+  var startingLength = this.pList2.length - 1
+  for(var i = startingLength - 1; i > 0; i--) {
+    if (this.pList2[i].stillAlive()) {
+      this.pList2[i].run();
+    } else {
+      if (this.pList2[i].spawn) {
+        //var x = new ParticleSystem(this.color, this.radius, this.pList[i].spawnLocationX, this.pList[i].spawnLocationY, this.pList[i].spawnVelocityX, this.pList[i].spawnVelocityY);
+        //x.run();
+      }
+      this.pList2.splice(i, 1);
+    }
+  }
+
+  var startingLength = this.pList3.length - 1
+  for(var i = startingLength - 1; i > 0; i--) {
+    if (this.pList3[i].stillAlive()) {
+      this.pList3[i].run();
+    } else {
+      if (this.pList3[i].spawn) {
+        //var x = new ParticleSystem(this.color, this.radius, this.pList[i].spawnLocationX, this.pList[i].spawnLocationY, this.pList[i].spawnVelocityX, this.pList[i].spawnVelocityY);
+        //x.run();
+      }
+      this.pList3.splice(i, 1);
     }
   }
 }
 
+ParticleSystem.prototype.returnTypeOneParticles = function(particle) {
+  return pList1;
+}
+
+ParticleSystem.prototype.returnTypeTwoParticles = function(particle) {
+  return pList2;
+}
+
+ParticleSystem.prototype.returnTypeThreeParticles = function(particle) {
+  return pList3;
+}
 
 ParticleSystem.prototype.checkEdges = function() {
   if(this.location.x > canvas.width - this.radius) {

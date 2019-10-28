@@ -1,11 +1,17 @@
 var radius;
 var color;
 var system;
+var p1;
+var p2;
+var p3;
 
 function System(number, locX, locY, velX, velY) {
   this.system = [];
   this.radius = radius;
   this.color = color;
+  this.p1 = [];
+  this.p2 = [];
+  this.p3 = [];
 
   var a = number;
   while (a > 0) {
@@ -17,6 +23,14 @@ function System(number, locX, locY, velX, velY) {
 System.prototype.update = function() {
   for(var i = 0; i < this.system.length; i++) {
     this.system[i].run();
+  }
+}
+
+System.prototype.collectParticles = function() {
+  for(var i = 0; i < this.system.length; i++) {
+    this.system[i].returnTypeOneParticles();
+    this.system[i].returnTypeTwoParticles();
+    this.system[i].returnTypeThreeParticles(); //fix this
   }
 }
 /*
