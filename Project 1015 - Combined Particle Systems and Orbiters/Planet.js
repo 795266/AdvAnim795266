@@ -67,6 +67,7 @@ Planet.prototype.draw = function() {
   ctx.fill();
   ctx.stroke();
 }
+
 Planet.prototype.run = function() {
   this.update();
   this.checkEdges();

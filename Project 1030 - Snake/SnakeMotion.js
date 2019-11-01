@@ -15,7 +15,7 @@ function init() {
   cnv.style.border = "solid black 2px";
   cnv.style.backgroundColor = 'rgba(0,44,55,.5)';
 
-  snakeSystem = new SnakeSystem();
+  snakeSystem = new SnakeSystem(2);
   animate();
 }
 

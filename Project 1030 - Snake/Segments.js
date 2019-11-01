@@ -1,3 +1,4 @@
+/*
 var length;
 var color;
 var headLocation;
@@ -7,7 +8,7 @@ function Segment(leaderTailLocation, segmentLength, segmentColor) {
   this.length = segmentLength;
   this.color = segmentColor;
   this.headlocation = leaderTailLocation;
-  this.tailLocation = //need to fix this
+  this.tailLocation = leaderTailLocation.subGetNew(this.tailLocation);
 }
 
 Segment.prototype.run = function() {
@@ -15,15 +16,22 @@ Segment.prototype.run = function() {
   this.draw();
 }
 
+Segment.prototype.update = function() {
+  this.updateMovement()
+}
+
 Segment.prototype.updateMovement = function() {
-  this.updateMovement();
+  var x = JSVector.subGetNew(this.headLocation, this.leaderTailLocation);
+  this.headLocation = this.leaderTailLocation;
+  this.tailLocation =
 }
 
 Segment.prototype.draw = function() {
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
   ctx.beginPath();
-  ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
+  ctx.line(this.headLocation.x, this.headLocation.y, this.)
   ctx.fill();
   ctx.stroke();
 }
+*/

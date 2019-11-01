@@ -3,9 +3,10 @@ var location;
 var velocity;
 var acceleration;
 var numberOfSegments
-var segmentLength;
+var segmentMagnitude;
 var segmentColor;
 var segmentArray;
+var direction;
 
 
 function Snake(headRadius, headColor, maxVelocity, numberOfSegments, segmentLength, segmentColor) {
@@ -27,12 +28,17 @@ function Snake(headRadius, headColor, maxVelocity, numberOfSegments, segmentLeng
   x = 0;
   y = 0;
   this.acceleration = new JSVector(x, y);
+
+  this.direction = this.velocity.getDirection();
+
+
 }
 
 Snake.prototype.run = function() {
   this.update();
   this.checkEdges();
   this.draw();
+  this.drawSegments();
 }
 
 Snake.prototype.update = function() {
@@ -48,36 +54,54 @@ Snake.prototype.updateMovement = function() {
 }
 
 Snake.prototype.updateSegments = function() {
+
   var a = 0;
+  this.segmentArray[a].location = this.location;
+  a++;
+
   while(a < this.segmentArray.length) {
-    this.segmentArray[a].run()
+    var d = JSVector.subGetNew(this.segmentArray[a].location, this.segmentArray[a - 1].location);
+    this.segmentArray[a].location = JSVector.addGetNew(this.segmentArray[a - 1].location, d);
+    a++
   }
 }
 
 Snake.prototype.checkEdges = function() {
-  if(this.location.x > canvas.width - this.radius) {
+  if(this.location.x > canvas.width - this.headRadius) {
     this.velocity.x = -Math.abs(this.velocity.x);
   }
-  if(this.location.x < this.radius) {
+  if(this.location.x < this.headRadius) {
     this.velocity.x = Math.abs(this.velocity.x)
   }
-  if(this.location.y > canvas.height - this.radius) {
+  if(this.location.y > canvas.height - this.headRadius) {
     this.velocity.y = -Math.abs(this.velocity.y);
   }
-  if(this.location.y < this.radius) {
+  if(this.location.y < this.headRadius) {
     this.velocity.y = Math.abs(this.velocity.y);
   }
 }
 
 Snake.prototype.draw = function() {
   ctx.strokeStyle = "black";
-  ctx.fillStyle = this.color;
+  ctx.fillStyle = this.headColor;
   ctx.beginPath();
-  ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
+  ctx.arc(this.location.x,this.location.y, this.headRadius, 0, Math.PI*2, false);
   ctx.fill();
   ctx.stroke();
 }
 
+Snake.prototype.drawSegments = function() {
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = this.headColor;
+
+  var a = 0;
+  while(a < this.segmentArray.length) {
+  ctx.beginPath();
+  ctx.arc(this.segmentArray[a].location.x,this.segmentArray[a].location.y, this.segmentRadius, 0, Math.PI*2, false);
+  ctx.fill();
+  ctx.stroke();
+}
+/*
 Snake.prototype.loadSegments = function() {
   var a = this.numberOfSegments;
   while(a > 0) {
@@ -85,3 +109,4 @@ Snake.prototype.loadSegments = function() {
     a--;
   }
 }
+*/

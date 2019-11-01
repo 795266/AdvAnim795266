@@ -8,17 +8,17 @@ function SnakeSystem(numberOfSnakes) {
 }
 
 SnakeSystem.prototype.run = function() {
-  var a = this.snakeArray.length;
+  var a = this.snakeArray.length - 1;
   while (a > 0) {
-    this.snakeArray[i].run();
+    this.snakeArray[a].run();
     a--;
   }
 }
 
-SnakeSystem.prototype.loadSnakeSystem = function(numberOfSnakes) {
+SnakeSystem.prototype.loadSnakeArray = function(numberOfSnakes) {
   var a = numberOfSnakes;
   while (a > 0) {
-      this.snakeArray.add(new Snake(30. 'blue', 7, 4, 30, 'orange')) //headRadius, headColor, maxVelocity, numberOfSegments, segmentLength, segmentColor
+      this.snakeArray.push(new Snake(30, 'blue', 7, 4, 30, 'orange')) //headRadius, headColor, maxVelocity, numberOfSegments, segmentLength, segmentColor
       a--;
   }
 }

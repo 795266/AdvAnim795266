@@ -27,6 +27,7 @@ System.prototype.update = function() {
 }
 
 System.prototype.collectParticles = function() {
+
   for(var i = 0; i < this.system.length; i++) {
     this.system[i].returnTypeOneParticles();
     this.system[i].returnTypeTwoParticles();
