@@ -96,17 +96,9 @@ Snake.prototype.drawSegments = function() {
 
   var a = 0;
   while(a < this.segmentArray.length) {
-  ctx.beginPath();
-  ctx.arc(this.segmentArray[a].location.x,this.segmentArray[a].location.y, this.segmentRadius, 0, Math.PI*2, false);
-  ctx.fill();
-  ctx.stroke();
-}
-/*
-Snake.prototype.loadSegments = function() {
-  var a = this.numberOfSegments;
-  while(a > 0) {
-    this.segmentArray.add(new Segment(this.location, this.segmentLength, this.segmentColor));
-    a--;
+    ctx.beginPath();
+    ctx.arc(this.segmentArray[a].location.x,this.segmentArray[a].location.y, this.segmentRadius, 0, Math.PI*2, false);
+    ctx.fill();
+    ctx.stroke();
   }
 }
-*/
