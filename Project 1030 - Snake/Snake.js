@@ -6,31 +6,44 @@ var numberOfSegments
 var segmentMagnitude;
 var segmentColor;
 var segmentArray;
-var direction;
 
 
-function Snake(headRadius, headColor, maxVelocity, numberOfSegments, segmentLength, segmentColor) {
+function Snake(headRadius, headColor, maxVelocity, numberOfSegments, segmentRadius, segmentColor) {
   this.headRadius = headRadius;
   this.headColor = headColor;
   this.maxVelocity = maxVelocity;
   this.numberOfSegments = numberOfSegments;
-  this.segmentLength = segmentLength;
+  this.segmentRadius = segmentRadius;
   this.segmentColor = segmentColor;
+  this.segmentArray = [];
 
-  this.segmentArray = []
-
-  var x = Math.random() * (canvas.width - 2 * this.headRadius) + this.headRadius;
+  var x = Math.random() * (canvas.width - 2 * this.headRadius) + this.headRadius; //gives snakehead its location
   var y = Math.random() * (canvas.height - 2 * this.headRadius) + this.headRadius;
-  this.location = new JSVector(x, y);
+  this.segmentArray.push(new JSVector(x, y));
+
+  var a = 1;
+  while(a < numberOfSegments) {
+    this.segmentArray.push(new JSVector(0, 0));
+    a++;
+  }
+  
   x = Math.random() * (2 * this.maxVelocity) - this.maxVelocity;
   y = Math.random() * (2 * this.maxVelocity) - this.maxVelocity;
   this.velocity = new JSVector(x, y);
   x = 0;
   y = 0;
   this.acceleration = new JSVector(x, y);
-
-  this.direction = this.velocity.getDirection();
-
+/*
+  var a = numberOfSegments;
+  var difference = this.segmentRadius * 2;
+  while(a > 0) {
+    x = Math.random() * (canvas.width - 2 * this.headRadius) + this.headRadius + difference; //gives segments their location
+    y = Math.random() * (canvas.height - 2 * this.headRadius) + this.headRadius;
+    this.segmentArray.push(new JSVector(x, y));
+    difference= difference *2;
+    a--;
+  }
+  */
 
 }
 
@@ -54,15 +67,14 @@ Snake.prototype.updateMovement = function() {
 }
 
 Snake.prototype.updateSegments = function() {
-
-  var a = 0;
-  this.segmentArray[a].location = this.location;
-  a++;
-
+  var a = 1;
   while(a < this.segmentArray.length) {
-    var d = JSVector.subGetNew(this.segmentArray[a].location, this.segmentArray[a - 1].location);
-    this.segmentArray[a].location = JSVector.addGetNew(this.segmentArray[a - 1].location, d);
-    a++
+    if(this.segmentArray[a].distance(this.segmentArray[a - 1]) > 2*this.segmentLength) {
+      this.newVector = JSVector.subGetNew(this.segmentArray[a], this.segmentArray[a - 1]);
+      this.newVector.setMagnitude(this.segmentRadius*2);
+      this.segmentArray[a] = this.segmentArray[a -1].add(this.newVector);
+      a++
+    }
   }
 }
 
@@ -91,6 +103,8 @@ Snake.prototype.draw = function() {
 }
 
 Snake.prototype.drawSegments = function() {
+  console.log("drawing segments");
+
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.headColor;
 
@@ -102,3 +116,12 @@ Snake.prototype.drawSegments = function() {
     ctx.stroke();
   }
 }
+/*
+Snake.prototype.loadSegments = function() {
+  var a = this.numberOfSegments;
+  while(a > 0) {
+    this.segmentArray.add(new Segment(this.location, this.segmentLength, this.segmentColor));
+    a--;
+  }
+}
+*/

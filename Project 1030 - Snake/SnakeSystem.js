@@ -23,7 +23,3 @@ SnakeSystem.prototype.loadSnakeArray = function(numberOfSnakes) {
       a--;
   }
 }
-
-SnakeSystem.prototype.loadSnakeSystemCustom = function() {
-
-}
