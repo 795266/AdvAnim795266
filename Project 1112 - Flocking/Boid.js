@@ -38,9 +38,9 @@ Boid.align = function(boids) {
   }
 }
 
-Boid.prototype.flock = function(boids) {
-  this.add()
-}
+// Boid.prototype.flock = function(boids) {
+//   this.add()
+// }
 
 Boid.prototype.update = function() {
   this.location.add(this.velocity);
