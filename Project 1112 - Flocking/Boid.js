@@ -1,7 +1,9 @@
-function Boid(radius, color, maxSpeed, maxForce) {
+function Boid(radius, color, maxSpeed, maxForce, boidArray) {
   this.color = color;
   this.radius = radius;
-  this.maxSpeed = maxSpeed
+  this.maxSpeed = maxSpeed;
+  this.maxForce = maxForce;
+  this.boidArray = boidArray;
   var x = Math.random() * (canvas.width - 2 * this.radius) + this.radius;
   var y = Math.random() * (canvas.height - 2 * this.radius) + this.radius;
   this.location = new JSVector(x, y);
@@ -13,36 +15,40 @@ function Boid(radius, color, maxSpeed, maxForce) {
   this.acceleration = new JSVector(x, y);
 }
 
-Boid.align = function(boids) {
+Boid.prototype.align = function() {
   var sum = new JSVector(0,0);
-  var neighborhoodDistance = 50;
+  var neighborhoodDistance = neighborhoodDistanceFactor;
 
   var count = 0;
-  for(var i = 0; i < boids.length; i++) {
-    var d = JSVector.distance(this.location, boids[i].location);
+  for(var i = 0; i < this.boidArray.length; i++) {
+    var d = this.location.distance(this.boidArray[i].location);
     if((d > 0) && (d < neighborhoodDistance)) {
-      sum.add(boids[i].velocity);
+      sum.add(this.boidArray[i].velocity);
       count++;
     }
   }
 
   if(count > 0) {
-    sum.div(count);
+    sum.divide(count);
     sum.normalize();
-    sum.mult(maxSpeed);
-    var steer = JSVector.sub(sum, velocity);
-    steer.limit(maxForce);
-    return steer;
-  } else {
-    return new JSVector(0, 0);
+    sum.multiply(this.maxSpeed);
+    var align = JSVector.subGetNew(sum, this.velocity);
+    align.normalize();
+    align.multiply(alignmentFactor);
+    align.limit(this.maxForce);
+    this.applyForce(align);
   }
 }
 
-// Boid.prototype.flock = function(boids) {
-//   this.add()
-// }
+Boid.prototype.applyForce = function(force) {
+  this.acceleration.add(force);
+}
+
 
 Boid.prototype.update = function() {
+  this.acceleration.limit(this.maxForce);
+  this.velocity.add(this.acceleration);
+  this.acceleration.multiply(0);
   this.location.add(this.velocity);
 }
 
@@ -71,6 +77,7 @@ Boid.prototype.draw = function() {
 }
 
 Boid.prototype.run = function() {
+  this.align();
   this.update();
   this.checkEdges();
   this.draw();
