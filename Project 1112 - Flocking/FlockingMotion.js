@@ -13,7 +13,9 @@ var neighborhoodDistanceFactor = 0;
 var neighborhoodDistanceSlider = 0;
 
 
-var boidSystem;
+var boidSystem1;
+var boidSystem2;
+
 
 function init() {
   canvas = document.getElementById('cnv');
@@ -29,7 +31,9 @@ function init() {
   seperationSlider = document.getElementById("sep")
   neighborhoodDistanceSlider = document.getElementById("nbd")
 
-  boidSystem = new BoidSystem(20, 20, 'orange', 10, 10);
+  boidSystem1 = new BoidSystem(20, 5, 'orange', 2, 10, 1);
+  boidSystem2 = new BoidSystem(20, 20, 'orange', 2, 10, 2);
+
   animate();
 }
 
@@ -43,5 +47,7 @@ function animate() {
   seperationFactor = seperationSlider.value;
   neighborhoodDistanceFactor = neighborhoodDistanceSlider.value;
 
-  boidSystem.run()
+  boidSystem1.run()
+  boidSystem2.run()
+
 }

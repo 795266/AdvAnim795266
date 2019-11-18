@@ -1,6 +1,6 @@
 var boids;
 
-function BoidSystem(number, radius, color, maxSpeed, maxForce) {
+function BoidSystem(number, radius, color, maxSpeed, maxForce, type) {
   this.boids = [];
   this.number = number;
   this.radius = radius;
@@ -10,7 +10,7 @@ function BoidSystem(number, radius, color, maxSpeed, maxForce) {
 
   var n = number;
   while(n > 0) {
-    this.boids.push(new Boid(radius, color, maxSpeed, maxForce, this.boids))
+    this.boids.push(new Boid(radius, color, maxSpeed, maxForce, this.boids, type))
     n--;
   }
 }

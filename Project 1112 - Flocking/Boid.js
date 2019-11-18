@@ -1,9 +1,10 @@
-function Boid(radius, color, maxSpeed, maxForce, boidArray) {
+function Boid(radius, color, maxSpeed, maxForce, boidArray, type) {
   this.color = color;
   this.radius = radius;
   this.maxSpeed = maxSpeed;
   this.maxForce = maxForce;
   this.boidArray = boidArray;
+  this.type = type;
   var x = Math.random() * (canvas.width - 2 * this.radius) + this.radius;
   var y = Math.random() * (canvas.height - 2 * this.radius) + this.radius;
   this.location = new JSVector(x, y);
@@ -48,6 +49,7 @@ Boid.prototype.applyForce = function(force) {
 Boid.prototype.update = function() {
   this.acceleration.limit(this.maxForce);
   this.velocity.add(this.acceleration);
+  this.velocity.limit(this.maxSpeed)
   this.acceleration.multiply(0);
   this.location.add(this.velocity);
 }
@@ -67,7 +69,7 @@ Boid.prototype.checkEdges = function() {
   }
 }
 
-Boid.prototype.draw = function() {
+Boid.prototype.drawC = function() {
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
   ctx.beginPath();
@@ -76,9 +78,29 @@ Boid.prototype.draw = function() {
   ctx.stroke();
 }
 
+Boid.prototype.drawT = function() {
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = this.color;
+  ctx.save();
+  ctx.translate(this.location.x, this.location.y);
+  ctx.rotate(this.velocity.getDirection());
+  ctx.beginPath();
+  ctx.moveTo(10, 0);
+  ctx.lineTo(-10, 5);
+  ctx.lineTo(-10, -5);
+  ctx.lineTo(10, 0);
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+}
+
 Boid.prototype.run = function() {
   this.align();
   this.update();
   this.checkEdges();
-  this.draw();
+  if(this.type == 2) {
+    this.drawT();
+  } else {
+    this.drawC();
+  }
 }
