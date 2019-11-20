@@ -19,7 +19,6 @@ function Boid(radius, color, maxSpeed, maxForce, boidArray, type) {
 Boid.prototype.align = function() {
   var sum = new JSVector(0,0);
   var neighborhoodDistance = neighborhoodDistanceFactor;
-
   var count = 0;
   for(var i = 0; i < this.boidArray.length; i++) {
     var d = this.location.distance(this.boidArray[i].location);
@@ -38,6 +37,31 @@ Boid.prototype.align = function() {
     align.multiply(alignmentFactor);
     align.limit(this.maxForce);
     this.applyForce(align);
+  }
+}
+
+Boid.prototype.seperate = function() {
+  var sum = new JSVector(0,0);
+  var neighborhoodDistance = neighborhoodDistanceFactor;
+  var count = 0;
+  for(var i = 0; i < this.boidArray.length; i++) {
+    var d = this.location.distance(this.boidArray[i].location);
+    if(d > 0 && d < neighborhoodDistanceFactor) {
+      var diff = JSVector.subGetNew(this.location, this.boidArray[i].location);
+      sum.add(diff);
+      count++;
+    }
+  }
+
+  if(count > 0) {
+    sum.divide(count);
+    sum.normalize();
+    sum.multiply(this.maxSpeed);
+    var seperate = JSVector.subGetNew(sum, this.velocity);
+    seperate.normalize();
+    seperate.multiply(seperationFactor);
+    seperate.limit(this.maxForce);
+    this.applyForce(seperate);
   }
 }
 
@@ -95,7 +119,8 @@ Boid.prototype.drawT = function() {
 }
 
 Boid.prototype.run = function() {
-  this.align();
+  //this.align();
+  this.seperate();
   this.update();
   this.checkEdges();
   if(this.type == 2) {
