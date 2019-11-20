@@ -31,18 +31,6 @@ function Snake(headRadius, headColor, maxVelocity, numberOfSegments, segmentRadi
   x = 0;
   y = 0;
   this.acceleration = new JSVector(x, y);
-/*
-  var a = numberOfSegments;
-  var difference = this.segmentRadius * 2;
-  while(a > 0) {
-    x = Math.random() * (canvas.width - 2 * this.headRadius) + this.headRadius + difference; //gives segments their location
-    y = Math.random() * (canvas.height - 2 * this.headRadius) + this.headRadius;
-    this.segmentArray.push(new JSVector(x, y));
-    difference= difference *2;
-    a--;
-  }
-  */
-
 }
 
 Snake.prototype.run = function() {

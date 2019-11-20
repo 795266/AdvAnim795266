@@ -18,8 +18,8 @@ SnakeSystem.prototype.run = function() {
 SnakeSystem.prototype.loadSnakeArray = function(numberOfSnakes) {
   var a = numberOfSnakes;
   while (a > 0) {
-    var newSnake = new Snake(30, 'blue', 7, 4, 30, 'orange');
-      this.snakeArray.push(newSnake); //headRadius, headColor, maxVelocity, numberOfSegments, segmentLength, segmentColor
+    var newSnake = new Snake(10, 'blue', 40, 10, 10, 'orange'); //headRadius, headColor, maxVelocity, numberOfSegments, segmentLength, segmentColor
+      this.snakeArray.push(newSnake);
       a--;
   }
 }
