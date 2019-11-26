@@ -8,7 +8,7 @@ function Ecosystem(c1, c2, c3, c4, c5, c6) {
 Ecosystem.prototype.loadCreatureArray = function(c1, c2, c3, c4, c5, c6) {
   var counter = 0;
   while(counter < c1) {
-    this.creatureArray.push(new Creature1());
+    this.creatureArray.push(new Creature1(5, 'orange', 7, 7, 8, this.creatureArray, 1)); //radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray
     counter++;
   }
   // var counter = 0;

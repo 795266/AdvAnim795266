@@ -1,34 +1,82 @@
 var segmentArray;
 
-function Creature1(radius, color, maxSpeed, maxForce, numberofSegments) {
+function Creature1(radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray, identity) {
   this.color = color;
   this.radius = radius;
   this.segmentArray = [];
+  this.creatureArray = creatureArray;
+  this.identity = identity;
+  this.maxSpeed = maxSpeed;
+  this.maxForce = maxForce;
+  this.numberOfSegments = numberOfSegments
+
   var x = Math.random() * (canvas.width - 2 * this.radius) + this.radius;
   var y = Math.random() * (canvas.height - 2 * this.radius) + this.radius;
   this.location = new JSVector(x, y);
-  x = Math.random() * (2 * maxSpeed) - this.maxSpeed;
-  y = Math.random() * (2 * maxSpeed) - this.maxSpeed;
+  this.segmentArray.push(this.location);
+  x = Math.random() * (2 * this.maxSpeed) - this.maxSpeed;
+  y = Math.random() * (2 * this.maxSpeed) - this.maxSpeed;
   this.velocity = new JSVector(x, y);
   x = 0;
   y = 0;
   this.acceleration = new JSVector(x, y);
 
-  var a = 1;
+  var a = 0;
   while(a < numberOfSegments) {
     this.segmentArray.push(new JSVector(0, 0));
     a++;
   }
+
+  x = Math.random() * (2 * this.maxSpeed) - this.maxSpeed;
+  y = Math.random() * (2 * this.maxSpeed) - this.maxSpeed;
+  this.velocity = new JSVector(x, y);
+  x = 0;
+  y = 0;
+  this.acceleration = new JSVector(x, y);
 }
 
+Creature1.prototype.returnIdentity = function() {
+  return this.identity;
+}
 
-Creature1.prototype.update = function() {
+Creature1.prototype.updateMovement = function() {
   this.velocity.add(this.acceleration);
   this.velocity.limit(2);
   this.location.add(this.velocity);
   this.acceleration.multiply(0);
 
   this.updateSegments();
+}
+
+Creature1.prototype.seperate = function() {
+  var sum = new JSVector(0,0);
+  var neighborhoodDistance = neighborhoodDistanceFactor;
+  var count = 0;
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    if(this.creatureArray[i].returnIdentity() == 1) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < neighborhoodDistanceFactor) {
+        var diff = JSVector.subGetNew(this.location, this.creatureArray[i].location);
+        sum.add(diff);
+        count++;
+      }
+    }
+  }
+
+  if(count > 0) {
+    sum.divide(count);
+    sum.normalize();
+    sum.multiply(this.maxSpeed);
+    var seperate = JSVector.subGetNew(sum, this.velocity);
+    seperate.normalize();
+    seperate.multiply(seperationFactor);
+    seperate.limit(this.maxForce);
+    this.applyForce(seperate);
+  }
+}
+
+Creature1.prototype.applyForce = function(force) {
+  this.acceleration.add(force);
 }
 
 Creature1.prototype.checkEdges = function() {
@@ -46,17 +94,19 @@ Creature1.prototype.checkEdges = function() {
   }
 }
 
-Creature1.prototype.run = function() {
-  this.update();
+Creature1.prototype.update = function() {
+  this.updateMovement();
+  this.seperate();
   this.checkEdges();
   this.draw();
+  this.drawSegments()
 }
 
 Creature1.prototype.updateSegments = function() {
   var a = 1;
   while(a < this.segmentArray.length) {
     this.newVector = JSVector.subGetNew(this.segmentArray[a], this.segmentArray[a - 1]);
-    this.newVector.setMagnitude(this.segmentRadius*2);
+    this.newVector.setMagnitude(this.radius*2);
     this.segmentArray[a] = JSVector.addGetNew(this.segmentArray[a -1], this.newVector);
     a++;
   }
@@ -66,14 +116,30 @@ Creature1.prototype.drawSegments = function() { //need to look at
   console.log("drawing segments");
 
   ctx.strokeStyle = "black";
-  ctx.fillStyle = this.headColor;
+  ctx.fillStyle = this.color;
 
   var a = 1;
   while(a < this.segmentArray.length) {
     ctx.beginPath();
-    ctx.arc(this.segmentArray[a].x, this.segmentArray[a].y, this.segmentRadius, 0, Math.PI*2, false);
+    ctx.arc(this.segmentArray[a].x, this.segmentArray[a].y, this.radius, 0, Math.PI*2, false);
     ctx.fill();
     ctx.stroke();
     a++;
   }
+}
+
+Creature1.prototype.draw = function() {
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = this.color;
+  ctx.save();
+  ctx.translate(this.location.x, this.location.y);
+  ctx.rotate(this.velocity.getDirection());
+  ctx.beginPath();
+  ctx.moveTo(10, 0);
+  ctx.lineTo(-10, 5);
+  ctx.lineTo(-10, -5);
+  ctx.lineTo(10, 0);
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
 }

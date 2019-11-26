@@ -104,6 +104,8 @@ Snake.prototype.drawSegments = function() {
     a++;
   }
 }
+
+
 /*
 Snake.prototype.loadSegments = function() {
   var a = this.numberOfSegments;
