@@ -1,8 +1,8 @@
 addEventListener("load", init);
 
 var canvas;
-var windowWidth = 600;
-var windowHeight = 800;
+var windowWidth = 800;
+var windowHeight = 600;
 var alignmentFactor = 0;
 var alignmentSlider = 0;
 var cohesionFactor = 0;
@@ -28,8 +28,8 @@ function init() {
   seperationSlider = document.getElementById("sep")
   neighborhoodDistanceSlider = document.getElementById("nbd")
 
-  ecosystem = new Ecosystem(10, 0, 0, 0, 0, 0);  //c1,c2,c3,c4,c5,c6
-                                //in put number of each type of creature
+  ecosystem = new Ecosystem(10, 1, 0, 0, 0, 0);  //c1,c2,c3,c4,c5,c6
+                                //input number of each type of creature
 
   animate();
 }

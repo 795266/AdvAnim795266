@@ -1,11 +1,11 @@
 var segmentArray;
 
-function Creature1(radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray, identity) {
+function Creature1(radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray) {
   this.color = color;
   this.radius = radius;
   this.segmentArray = [];
   this.creatureArray = creatureArray;
-  this.identity = identity;
+  this.identity = 1;
   this.maxSpeed = maxSpeed;
   this.maxForce = maxForce;
   this.numberOfSegments = numberOfSegments
@@ -72,6 +72,32 @@ Creature1.prototype.seperate = function() {
     seperate.multiply(seperationFactor);
     seperate.limit(this.maxForce);
     this.applyForce(seperate);
+  }
+}
+
+Creature1.prototype.align = function() {
+  var sum = new JSVector(0,0);
+  var neighborhoodDistance = neighborhoodDistanceFactor;
+  var count = 0;
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    if(this.creatureArray[i].getIdentity == 1) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if((d > 0) && (d < neighborhoodDistance)) {
+        sum.add(this.creatureArray[i].velocity);
+        count++;
+      }
+    }
+  }
+
+  if(count > 0) {
+    sum.divide(count);
+    sum.normalize();
+    sum.multiply(this.maxSpeed);
+    var align = JSVector.subGetNew(sum, this.velocity);
+    align.normalize();
+    align.multiply(alignmentFactor);
+    align.limit(this.maxForce);
+    this.applyForce(align);
   }
 }
 
