@@ -53,7 +53,7 @@ Creature1.prototype.seperate = function() {
   var neighborhoodDistance = neighborhoodDistanceFactor;
   var count = 0;
   for(var i = 0; i < this.creatureArray.length; i++) {
-    if(this.creatureArray[i].returnIdentity() == 1) {
+    if(this.creatureArray[i].returnIdentity() == 1 || this.creatureArray[i].returnIdentity() == 2) {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < neighborhoodDistanceFactor) {
         var diff = JSVector.subGetNew(this.location, this.creatureArray[i].location);

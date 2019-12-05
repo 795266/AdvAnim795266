@@ -48,7 +48,7 @@ Creature2.prototype.update = function() {
 
 Creature2.prototype.updateMovement = function() {
   this.velocity.add(this.acceleration);
-  this.velocity.limit(2);
+  this.velocity.limit(this.maxSpeed);
   this.location.add(this.velocity);
   this.acceleration.multiply(0);
 
@@ -72,6 +72,7 @@ Creature2.prototype.eat = function() {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < this.size*3) {
         this.grow();
+        this.creatureArray.splice(i, 1)
       }
     }
   }
@@ -104,7 +105,7 @@ Creature2.prototype.drawSegments = function() {
   var a = 1;
   while(a < this.segmentArray.length) {
     ctx.beginPath();
-    ctx.arc(this.segmentArray[a].x, this.segmentArray[a].y, 10, 0, Math.PI*2, false);
+    ctx.arc(this.segmentArray[a].x, this.segmentArray[a].y, this.size/2, 0, Math.PI*2, false);
     ctx.fill();
     ctx.stroke();
     a++;
