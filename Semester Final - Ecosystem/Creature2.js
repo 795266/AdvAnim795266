@@ -68,7 +68,7 @@ Creature2.prototype.updateSegments = function() {
 
 Creature2.prototype.eat = function() {
   for(var i = 0; i < this.creatureArray.length; i++) {
-    if(this.creatureArray[i].returnIdentity() == 1) {
+    if(this.creatureArray[i].returnIdentity() == 1 || this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 7) {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < this.size*3) {
         this.grow();
@@ -79,8 +79,9 @@ Creature2.prototype.eat = function() {
 }
 
 Creature2.prototype.grow = function() {
-  this.size = this.size + 2;
-  console.log("eat");
+  if(this.size < 25) {
+    this.size = this.size + 2;
+  }
 }
 
 Creature2.prototype.checkEdges = function() {
