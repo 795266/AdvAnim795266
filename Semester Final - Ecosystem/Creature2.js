@@ -42,6 +42,7 @@ Creature2.prototype.update = function() {
   this.updateMovement();
   this.checkEdges();
   this.eat();
+  //this.eat2();
   this.draw();
   this.drawSegments()
 }
@@ -68,7 +69,7 @@ Creature2.prototype.updateSegments = function() {
 
 Creature2.prototype.eat = function() {
   for(var i = 0; i < this.creatureArray.length; i++) {
-    if(this.creatureArray[i].returnIdentity() == 1 || this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 7) {
+    if(this.creatureArray[i].returnIdentity() == 1 || this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 4 || this.creatureArray[i].returnIdentity() == 7) {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < this.size*3) {
         this.grow();
@@ -83,6 +84,24 @@ Creature2.prototype.grow = function() {
     this.size = this.size + 2;
   }
 }
+//
+// Creature2.prototype.eat2 = function() {
+//   for(var i = 0; i < this.creatureArray.length; i++) {
+//     if(this.creatureArray[i].returnIdentity() == 8) {
+//       var d = this.location.distance(this.creatureArray[i].location);
+//       if(d > 0 && d < this.size*3) {
+//         this.shrink();
+//         this.creatureArray.splice(i, 1)
+//       }
+//     }
+//   }
+// }
+//
+// Creature2.prototype.shrink = function() {
+//   if(this.size < 25) {
+//     this.size = this.size - 2;
+//   }
+// }
 
 Creature2.prototype.checkEdges = function() {
   if(this.location.x > canvas.width - this.size) {
