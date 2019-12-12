@@ -6,9 +6,9 @@ var color;
 var lifetime;
 var identity;
 
-function Creature5Particles(size, speed, location, color) { //
+function Creature5Particles(size, speed, location, color) {
   this.color = color;
-  this.radius = radius;
+  this.size = size;
   this.location = location.copy();
   x = Math.random() * (speed) - speed * .5;
   y = Math.random() * (speed) - speed * .5;
@@ -42,7 +42,7 @@ Creature5Particles.prototype.draw = function() {
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
   ctx.beginPath();
-  ctx.arc(this.location.x,this.location.y, this.radius, 0, Math.PI*2, false);
+  ctx.arc(this.location.x,this.location.y, this.size/2, 0, Math.PI*2, false);
   ctx.fill();
   ctx.stroke();
 }

@@ -12,8 +12,11 @@ var angle;
 var location;
 var orignalRadius;
 var orignalRotationalRadius;
+var reproducingColor = 'green';
+var creatureArray;
 
-function Creature3Arms(radius, color, angle,  planetX, planetY, rotationalRadius) {
+
+function Creature3Arms(radius, color, angle,  planetX, planetY, rotationalRadius, creatureArray) {
   this.color = color;
   this.orignalColor = color;
   this.radius = radius;
@@ -25,6 +28,7 @@ function Creature3Arms(radius, color, angle,  planetX, planetY, rotationalRadius
   this.angle = angle;
   this.planetX = planetX;
   this.planetY = planetY;
+  this.creatureArray = creatureArray;
   var x = planetX + this.rotationalRadius * Math.sin(this.angle);
   var y = planetY + this.rotationalRadius * Math.cos(this.angle);
   this.location = new JSVector(x, y);
@@ -48,21 +52,22 @@ Creature3Arms.prototype.draw = function() {
 }
 Creature3Arms.prototype.update = function(x, y) {
   this.updateMovement(x, y);
+  this.checkReproduce();
   this.draw();
 }
 
 Creature3Arms.prototype.checkReproduce = function() {
-  this.radius = this.orignalRadius;
-  this.rotationalRadius = this.orignalOrbitRadius;
-  this.color = this.orignalColor;
-  for(var i = 0; i < this.creatureArray.length; i++) {
-    if(this.creatureArray[i].returnIdentity() == 3) {
-      var d = this.location.distance(this.creatureArray[i].location);
-      if(d > 0 && d < this.size*2) {
-        this.radius = this.reproducingBallRadius;
-        this.rotationalRadius = this.reproducingOrbitRadius;
-        this.color = 'green';
-      }
-    }
-  }
+//   this.radius = this.orignalRadius;
+//   this.rotationalRadius = this.orignalOrbitRadius;
+//   this.color = this.orignalColor;
+//   for(var i = 0; i < this.creatureArray.length; i++) {
+//     if(this.creatureArray[i].returnIdentity() == 3) {
+//       var d = this.location.distance(this.creatureArray[i].location);
+//       if(d > 0 && d < this.size*2) {
+//         this.radius = this.reproducingBallRadius;
+//         this.rotationalRadius = this.reproducingOrbitRadius;
+//         this.color = reproducingColor;
+//       }
+//     }
+//   }
 }

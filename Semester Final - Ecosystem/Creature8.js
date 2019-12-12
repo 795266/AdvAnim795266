@@ -45,24 +45,8 @@ Creature8.prototype.updateMovement = function() {
   this.updateSegments();
 }
 
-Creature8.prototype.checkEdges = function() {
-  if(this.poopLocation.x > canvas.width - this.radius) {
-    this.velocity.x = -Math.abs(this.velocity.x);
-  }
-  if(this.poopLocation.x < this.radius) {
-    this.velocity.x = Math.abs(this.velocity.x)
-  }
-  if(this.poopLocation.y > canvas.height - this.radius) {
-    this.velocity.y = -Math.abs(this.velocity.y);
-  }
-  if(this.poopLocation.y < this.radius) {
-    this.velocity.y = Math.abs(this.velocity.y);
-  }
-}
-
 Creature8.prototype.update = function() {
   this.updateMovement();
-  this.checkEdges();
   this.draw();
   this.drawSegments()
 }
@@ -105,7 +89,7 @@ Creature8.prototype.draw = function() {
   ctx.restore();
 }
 
-Creature4Arms.prototype.drawSegments = function() {
+Creature8.prototype.drawSegments = function() {
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
 

@@ -1,4 +1,5 @@
 var size;
+var normalSize;
 var color;
 var maxSpeed;
 var maxForce;
@@ -19,7 +20,7 @@ var reproducingBallRadius;
 function Creature3(size, color, maxSpeed, ballNumber, creatureArray) {
   this.color = color;
   this.size = size;
-
+  this.normalSize = size;
   this.normalOrbitRadius = this.size*4/3;
   this.reproducingOrbitRadius = this.size*7/3;
   this.normalBallRadius = this.size/3;
@@ -46,13 +47,44 @@ function Creature3(size, color, maxSpeed, ballNumber, creatureArray) {
 
 Creature3.prototype.loadArms = function() {
   for(var i = 0; i < this.ballNumber; i++) {
-    var k = new Creature3Arms(this.ballRadius, this.ballColor, i*2*Math.PI/this.ballNumber, this.location.x, this.location.y, this.orbitRadius)
+    var k = new Creature3Arms(this.ballRadius, this.ballColor, i*2*Math.PI/this.ballNumber, this.location.x, this.location.y, this.orbitRadius, this.creatureArray) //(radius, color, angle,  planetX, planetY, rotationalRadius, creatureArray)
     this.arms.push(k);
   }
 }
 
 Creature3.prototype.returnIdentity = function() {
   return this.identity;
+}
+
+Creature3.prototype.eat = function() {
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    if(this.creatureArray[i].returnIdentity() == 9) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < this.size) {
+        this.shrink();
+        this.creatureArray.splice(i, 1)
+      }
+    }
+    if(this.creatureArray[i].returnIdentity() == 8) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < this.size) {
+        this.grow();
+        this.creatureArray.splice(i, 1)
+      }
+    }
+  }
+}
+
+Creature3.prototype.shrink = function() {
+  if(this.size > 5) {
+    this.size = this.size - 1;
+  }
+}
+
+Creature3.prototype.grow = function() {
+  if(this.size < this.normalSize * 2) {
+    this.size = this.size + 1;
+  }
 }
 
 Creature3.prototype.updateArms = function() {
@@ -91,6 +123,7 @@ Creature3.prototype.checkReproduce = function() {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < this.size*2) {
         this.reproduce();
+        this.size = this.normalSize;
       }
     }
   }
@@ -114,6 +147,7 @@ Creature3.prototype.draw = function() {
 Creature3.prototype.update = function() {
   this.updateMovement();
   this.updateArms(this.location.x, this.location.y);
+  this.eat();
   this.checkEdges();
   this.checkReproduce();
   this.draw();

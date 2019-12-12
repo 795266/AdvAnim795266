@@ -22,7 +22,7 @@ function Creature1(radius, color, maxSpeed, maxForce, numberOfSegments, creature
   this.acceleration = new JSVector(x, y);
 
   var a = 0;
-  while(a < numberOfSegments) {
+  while(a < this.segmentArray.length) {
     this.segmentArray.push(new JSVector(0, 0));
     a++;
   }
@@ -46,6 +46,24 @@ Creature1.prototype.updateMovement = function() {
   this.acceleration.multiply(0);
 
   this.updateSegments();
+}
+
+Creature1.prototype.eat = function() {
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    if(this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 7) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < this.size) {
+        this.grow();
+        this.creatureArray.splice(i, 1)
+      }
+    }
+  }
+}
+
+Creature1.prototype.grow = function() {
+  if(this.segmentArray.length < 10) {
+    this.segmentArray.push(new JSVector(0, 0));
+  }
 }
 
 Creature1.prototype.seperate = function() {
@@ -124,6 +142,7 @@ Creature1.prototype.update = function() {
   this.updateMovement();
   this.seperate();
   this.checkEdges();
+  // this.eat();
   this.draw();
   this.drawSegments()
 }

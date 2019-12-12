@@ -66,21 +66,6 @@ Creature3Baby.prototype.updateMovement = function() {
   this.acceleration.multiply(0);
 }
 
-Creature3Baby.prototype.checkEdges = function() {
-  if(this.location.x > canvas.width - this.size) {
-    this.velocity.x = -Math.abs(this.velocity.x);
-  }
-  if(this.location.x < this.size) {
-    this.velocity.x = Math.abs(this.velocity.x)
-  }
-  if(this.location.y > canvas.height - this.size) {
-    this.velocity.y = -Math.abs(this.velocity.y);
-  }
-  if(this.location.y < this.size) {
-    this.velocity.y = Math.abs(this.velocity.y);
-  }
-}
-
 Creature3Baby.prototype.lifespan = function() {
   this.lifespan = this.lifespan - 1;
   if(this.lifespan = 1) {
@@ -101,6 +86,5 @@ Creature3Baby.prototype.draw = function() {
 Creature3Baby.prototype.update = function() {
   this.updateMovement();
   this.updateArms(this.location.x, this.location.y);
-  this.checkEdges();
   this.draw();
 }

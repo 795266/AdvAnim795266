@@ -66,8 +66,11 @@ Creature5.prototype.updateSegments = function() {
 }
 
 Creature5.prototype.updateParticles = function() {
-  g = new Creature5Particles(this.size, this.maxSpeed, this.location, this.color); //input parameters for particles
-  this.creatureArray.push(g);
+  var x = Math.random() * 15;
+  if(x < 1) {
+    g = new Creature5Particles(this.size, this.maxSpeed, this.location, this.color); //input parameters for particles
+    this.creatureArray.push(g);
+  }
 
   for(var i = 0; i < this.creatureArray.length; i++) {
     if(this.creatureArray[i].returnIdentity() == 9) {
