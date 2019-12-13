@@ -28,7 +28,7 @@ function init() {
   seperationSlider = document.getElementById("sep")
   neighborhoodDistanceSlider = document.getElementById("nbd")
 
-  ecosystem = new Ecosystem(5, 1, 5, 8, 8, 10);  //c1,c2,c3,c4,c5,c6
+  ecosystem = new Ecosystem(10, 1, 8, 8, 8, 20);  //c1,c2,c3,c4,c5,c6
                                 //input number of each type of creature
 
   animate();
