@@ -63,9 +63,10 @@ Creature3.prototype.eat = function() {
       if(d > 0 && d < this.size) {
         this.shrink();
         this.creatureArray.splice(i, 1)
+        i--;
       }
     }
-    if(this.creatureArray[i].returnIdentity() == 8) {
+    if(this.creatureArray[i].returnIdentity() == 7) {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < this.size) {
         this.grow();

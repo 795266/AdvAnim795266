@@ -1,4 +1,13 @@
 var segmentArray;
+var radius;
+var color;
+var maxSpeed;
+var maxForce;
+var numberOfSegments;
+var creatureArray;
+var location;
+var velocity;
+var acceleration;
 
 function Creature1(radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray) {
   this.color = color;
@@ -22,7 +31,7 @@ function Creature1(radius, color, maxSpeed, maxForce, numberOfSegments, creature
   this.acceleration = new JSVector(x, y);
 
   var a = 0;
-  while(a < this.segmentArray.length) {
+  while(a < this.numberOfSegments) {
     this.segmentArray.push(new JSVector(0, 0));
     a++;
   }

@@ -14,7 +14,7 @@ function Creature5(size, color, maxSpeed, maxForce, creatureArray) {
     this.numberOfSegments = this.size/2;
     this.segmentArray = [];
     this.creatureArray = creatureArray;
-    this.identity = 2;
+    this.identity = 5;
 
     var x = Math.random() * (canvas.width - 2 * this.size) + this.size;
     var y = Math.random() * (canvas.height - 2 * this.size) + this.size;
