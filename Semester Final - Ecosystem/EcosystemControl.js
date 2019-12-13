@@ -1,8 +1,8 @@
 addEventListener("load", init);
 
 var canvas;
-var windowWidth = 600;
-var windowHeight = 400;
+var windowWidth = 1000;
+var windowHeight = 800;
 var alignmentFactor = 0;
 var alignmentSlider = 0;
 var cohesionFactor = 0;

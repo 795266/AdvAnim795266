@@ -7,16 +7,16 @@ function Ecosystem(c1, c2, c3, c4, c5, c6) {
 }
 
 Ecosystem.prototype.loadCreatureArray = function(c1, c2, c3, c4, c5, c6) {
-  // var counter = 0;
-  // while(counter < c1) {
-  //   this.creatureArray.push(new Creature1(5, 'orange', speedVariable + 5, .2, 8, this.creatureArray)); //radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray
-  //   counter++;
-  // }
-  // counter = 0;
-  // while(counter < c2) {
-  //   this.creatureArray.push(new Creature2(10, 'purple', speedVariable + 5, .2, this.creatureArray)); //size, color, maxSpeed, maxForce, creatureArray
-  //   counter++;
-  // }
+  var counter = 0;
+  while(counter < c1) {
+    this.creatureArray.push(new Creature1(5, 'orange', speedVariable + 5, .2, 8, this.creatureArray)); //radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray
+    counter++;
+  }
+  counter = 0;
+  while(counter < c2) {
+    this.creatureArray.push(new Creature2(10, 'purple', speedVariable + 5, .2, this.creatureArray)); //size, color, maxSpeed, maxForce, creatureArray
+    counter++;
+  }
   var counter = 0;
   while(counter < c3) {
     this.creatureArray.push(new Creature3(10, 'blue', speedVariable + 1, 5, this.creatureArray)); //size, color, maxSpeed, ballNumber, creatureArray

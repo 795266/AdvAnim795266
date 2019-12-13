@@ -48,23 +48,23 @@ Creature1.prototype.updateMovement = function() {
   this.updateSegments();
 }
 
-Creature1.prototype.eat = function() {
-  for(var i = 0; i < this.creatureArray.length; i++) {
-    if(this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 7) {
-      var d = this.location.distance(this.creatureArray[i].location);
-      if(d > 0 && d < this.size) {
-        this.grow();
-        this.creatureArray.splice(i, 1)
-      }
-    }
-  }
-}
-
-Creature1.prototype.grow = function() {
-  if(this.segmentArray.length < 10) {
-    this.segmentArray.push(new JSVector(0, 0));
-  }
-}
+// Creature1.prototype.eat = function() {
+//   for(var i = 0; i < this.creatureArray.length; i++) {
+//     if(this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 7) {
+//       var d = this.location.distance(this.creatureArray[i].location);
+//       if(d > 0 && d < this.size) {
+//         this.grow();
+//         this.creatureArray.splice(i, 1)
+//       }
+//     }
+//   }
+// }
+//
+// Creature1.prototype.grow = function() {
+//   if(this.segmentArray.length < 10) {
+//     this.segmentArray.push(new JSVector(0, 0));
+//   }
+// }
 
 Creature1.prototype.seperate = function() {
   var sum = new JSVector(0,0);
