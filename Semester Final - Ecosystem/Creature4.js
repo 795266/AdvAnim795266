@@ -1,3 +1,7 @@
+//creates a pink jellyfish-like creature that eats creature3 particles and defecates brown triangles
+//houses orbiting and snake labs
+//behaviors are predatory eating and defecating
+
 var color;
 var radius;
 var arms;
@@ -80,11 +84,24 @@ Creature4.prototype.eat = function() {
         this.creatureArray.splice(i, 1)
       }
     }
+    if(this.creatureArray[i].returnIdentity() == 9) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < this.size) {
+        this.shrink();
+        this.creatureArray.splice(i, 1)
+        i--;
+      }
+    }
+  }
+}
+
+Creature4.prototype.shrink = function() {
+  if(this.radius > 5) {
+    this.radius = this.radius - 1;
   }
 }
 
 Creature4.prototype.defecate = function() {
-  console.log("defecate")
   this.creatureArray.push(new Creature8(this.location, this.radius, this.color, this.maxSpeed, this.maxForce, this.numberOfSegments * 2, this.creatureArray)) //radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray
 }
 

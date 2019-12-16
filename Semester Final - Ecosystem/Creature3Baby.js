@@ -27,7 +27,7 @@ function Creature3Baby(size, irrelevantSize, color, maxSpeed, ballNumber, creatu
   this.creatureArray = creatureArray;
   this.identity = 7;
   this.maxSpeed = maxSpeed;
-  this.lifespan = 900;
+  this.lifespan = (Math.random*300);
   var x = Math.random() * (30) - 15 + parentLocation.x;
   var y = Math.random() * (30) - 15 + parentLocation.y;
   this.location = new JSVector(x, y);
@@ -66,13 +66,13 @@ Creature3Baby.prototype.updateMovement = function() {
   this.acceleration.multiply(0);
 }
 
-Creature3Baby.prototype.lifespan = function() {
-  this.lifespan = this.lifespan - 1;
-  if(this.lifespan = 1) {
-    this.creatureArray.add(new Creature3Location(this.size, this.color, this.maxSpeed, this.ballNumber, this.creatureArray, this.location)); //size, color, maxSpeed, ballNumber, creatureArray
-    this.creatureArray.splice(this.creatureArray.indexOf(this), 1)
-  }
-}
+// Creature3Baby.prototype.lifespan = function() {
+//   this.lifespan = this.lifespan - 1;
+//   if(this.lifespan = 1) {
+//     this.creatureArray.add(new Creature3Location(this.size, this.color, this.maxSpeed, this.ballNumber, this.creatureArray, this.location)); //size, color, maxSpeed, ballNumber, creatureArray
+//     this.creatureArray.splice(this.creatureArray.indexOf(this), 1)
+//   }
+// }
 
 Creature3Baby.prototype.draw = function() {
   ctx.strokeStyle = "black";
@@ -87,4 +87,5 @@ Creature3Baby.prototype.update = function() {
   this.updateMovement();
   this.updateArms(this.location.x, this.location.y);
   this.draw();
+  //this.lifespan();
 }

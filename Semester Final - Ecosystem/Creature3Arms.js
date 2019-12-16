@@ -37,7 +37,8 @@ function Creature3Arms(radius, color, angle,  planetX, planetY, rotationalRadius
 Creature3Arms.prototype.updateMovement = function(x, y) {
   this.planetX = x;
   this.planetY = y;
-  this.angle = this.angle;
+
+  this.angle = this.angle + .03;
   this.location.x = this.planetX + this.orignalRotationalRadius * Math.cos(this.angle);
   this.location.y = this.planetY + this.orignalRotationalRadius * Math.sin(this.angle);
 }

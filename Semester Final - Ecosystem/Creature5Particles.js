@@ -27,6 +27,11 @@ Creature5Particles.prototype.returnIdentity = function() {
 Creature5Particles.prototype.update = function() {
   this.updateMovement();
   this.draw();
+
+  this.lifespan = this.lifespan - 1;
+  if(this.lifespan < 0) {
+    this.creatureArray.splice(this.creatureArray.indexOf(this), 1)
+  }
 }
 
 Creature5Particles.prototype.updateMovement = function() {

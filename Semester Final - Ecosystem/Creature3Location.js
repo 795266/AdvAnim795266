@@ -17,6 +17,7 @@ var normalBallRadius;
 var reproducingBallRadius;
 
 function Creature3(size, color, maxSpeed, ballNumber, creatureArray, location) {
+
   this.color = color;
   this.size = size;
 

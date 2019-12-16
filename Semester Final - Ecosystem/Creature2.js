@@ -6,9 +6,9 @@ var creatureArray;
 var location;
 var velocity;
 
-function Creature2(size, color, maxSpeed, maxForce, creatureArray) {
-    this.color = color;
-    this.size = size;
+function Creature2(size, color, maxSpeed, maxForce, creatureArray) { //creates a purple stingray-looking monster that eats nearly every other creature
+    this.color = color;                                            //houses the snake and direction labs
+    this.size = size;;                                               //behaviors are eating prey and growing/shrinking
     this.maxSpeed = maxSpeed;
     this.maxForce = maxForce;
     this.numberOfSegments = this.size/2;
@@ -42,7 +42,6 @@ Creature2.prototype.update = function() {
   this.updateMovement();
   this.checkEdges();
   this.eat();
-  //this.eat2();
   this.draw();
   this.drawSegments()
 }
@@ -69,7 +68,7 @@ Creature2.prototype.updateSegments = function() {
 
 Creature2.prototype.eat = function() {
   for(var i = 0; i < this.creatureArray.length; i++) {
-    if(this.creatureArray[i].returnIdentity() == 1 || this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 4 || this.creatureArray[i].returnIdentity() == 5 || this.creatureArray[i].returnIdentity() == 6) {
+    if(this.creatureArray[i].returnIdentity() == 1 || this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 4 || this.creatureArray[i].returnIdentity() == 6) {
       var d = this.location.distance(this.creatureArray[i].location);
       if(d > 0 && d < this.size*3) {
         this.grow();

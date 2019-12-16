@@ -1,3 +1,7 @@
+//creates a blue planet creature that will reproduce with others of its kind to create a system of little blue circles
+//houses the planet orbiting and particle system labs
+//behaviors are reproducion and growth/shrinking because the central radius changes magnitude when it is hit by creature5 particles
+
 var size;
 var normalSize;
 var color;
@@ -125,6 +129,10 @@ Creature3.prototype.checkReproduce = function() {
       if(d > 0 && d < this.size*2) {
         this.reproduce();
         this.size = this.normalSize;
+        var k = Math.random * 100;
+        if(k < 4) {
+          this.creatureArray.push(new Creature3(10, 'blue', this.maxSpeed, 5, this.creatureArray, this.location));
+        }
       }
     }
   }

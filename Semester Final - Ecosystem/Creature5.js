@@ -1,3 +1,7 @@
+//creates a small green poison spitting creature that camoflagues from Creature2
+//houses direction and particle system labs
+//behaviors are camoflague and poison spitting
+
 var size;
 var color;
 var maxSpeed;
@@ -7,7 +11,8 @@ var location;
 var velocity;
 
 function Creature5(size, color, maxSpeed, maxForce, creatureArray) {
-    this.color = color;
+    this.normalColor = color;
+    this.camoflaugeColor = 'white';
     this.size = size;
     this.maxSpeed = maxSpeed;
     this.maxForce = maxForce;
@@ -39,10 +44,12 @@ Creature5.prototype.returnIdentity = function() {
 }
 
 Creature5.prototype.update = function() {
+  this.align();
   this.updateMovement();
   this.updateSegments();
   this.updateParticles();
   this.checkEdges();
+  this.camo();
   this.draw1();
   this.drawSegments()
 }
@@ -85,12 +92,11 @@ Creature5.prototype.updateParticles = function() {
 
 Creature5.prototype.align = function() {
   var sum = new JSVector(0,0);
-  var neighborhoodDistance = neighborhoodDistanceFactor;
   var count = 0;
   for(var i = 0; i < this.creatureArray.length; i++) {
     if(this.creatureArray[i].getIdentity == 4) {
       var d = this.location.distance(this.creatureArray[i].location);
-      if((d > 0) && (d < neighborhoodDistance)) {
+      if((d > 0) && (d < 20)) {
         sum.add(this.creatureArray[i].velocity);
         count++;
       }
@@ -103,7 +109,7 @@ Creature5.prototype.align = function() {
     sum.multiply(this.maxSpeed);
     var align = JSVector.subGetNew(sum, this.velocity);
     align.normalize();
-    align.multiply(alignmentFactor);
+    align.multiply(10);
     align.limit(this.maxForce);
     this.applyForce(align);
   }
@@ -111,6 +117,18 @@ Creature5.prototype.align = function() {
 
 Creature5.prototype.applyForce = function(force) {
   this.acceleration.add(force);
+}
+
+Creature5.prototype.camo = function() {
+  this.color = this.normalColor;
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    if(this.creatureArray[i].returnIdentity() == 2) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < this.size*10) {
+        this.color = this.camoflaugeColor;
+      }
+    }
+  }
 }
 
 Creature5.prototype.checkEdges = function() {

@@ -1,3 +1,7 @@
+//creates a worm-like creature that aligns with itself and eats creature3 particles while defecating a brown triangle
+//houses snake and alignment labs
+//behaviors are prey protection by grouping in numbers, predatory eating, and defecating
+
 var color;
 var radius;
 var arms;
@@ -75,7 +79,7 @@ Creature6.prototype.eat = function() {
   for(var i = 0; i < this.creatureArray.length; i++) {
     if(this.creatureArray[i].returnIdentity() == 7) {
       var d = this.location.distance(this.creatureArray[i].location);
-      if(d > 0 && d < this.radius) {
+      if(d > 0 && d < this.radius*5) {
         this.defecate();
         this.creatureArray.splice(i, 1)
       }
@@ -84,7 +88,6 @@ Creature6.prototype.eat = function() {
 }
 
 Creature6.prototype.defecate = function() {
-  console.log("defecate")
   this.creatureArray.push(new Creature8(this.location, this.radius, this.color, this.maxSpeed, this.maxForce, this.numberOfSegments * 2, this.creatureArray)) //radius, color, maxSpeed, maxForce, numberOfSegments, creatureArray
 }
 
@@ -100,12 +103,6 @@ Creature6.prototype.align = function() {
       }
     }
   }
-  // if(this.creatureArray[i].returnIdentity() == 2) {
-  //   var d = this.location.distance(this.creatureArray[i].location);
-  //   if((d > 0) && (d < 30)) {
-  //     count = -1;
-  //   }
-  // }
   if(count > 0) {
     sum.divide(count);
     sum.normalize();
@@ -116,9 +113,30 @@ Creature6.prototype.align = function() {
     align.limit(this.maxForce);
     this.applyForce(align);
   }
-  // if(count < 0) {
-  //   this.seperate();
-  // }
+}
+
+Creature6.prototype.seperate = function() {
+  var sum = new JSVector(0,0);
+  var count = 0;
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    var d = this.location.distance(this.creatureArray[i].location);
+    if(d > 0 && d < this.radius*5) {
+      var diff = JSVector.subGetNew(this.location, this.creatureArray[i].location);
+      sum.add(diff);
+      count++;
+    }
+  }
+
+  if(count > 0) {
+    sum.divide(count);
+    sum.normalize();
+    sum.multiply(this.maxSpeed);
+    var seperate = JSVector.subGetNew(sum, this.velocity);
+    seperate.normalize();
+    seperate.multiply(seperationFactor);
+    seperate.limit(this.maxForce);
+    this.applyForce(seperate);
+  }
 }
 
 // Creature6.prototype.seperate = function() {
@@ -173,7 +191,8 @@ Creature6.prototype.applyForce = function(force) {
 
 Creature6.prototype.update = function() {
   this.align();
+  this.seperate();
   this.updateMovement();
-  //this.eat();
+  this.eat();
   this.checkEdges();
 }

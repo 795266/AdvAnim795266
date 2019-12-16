@@ -1,3 +1,7 @@
+//creates a triangle-faced orange snake creature that avoids predators and other members of its species
+//houses the snake and facing direction labs
+//behaviors are avoidance of other creatures and growing more segments when it eats creature3 offspring
+
 var segmentArray;
 var radius;
 var color;
@@ -57,23 +61,23 @@ Creature1.prototype.updateMovement = function() {
   this.updateSegments();
 }
 
-// Creature1.prototype.eat = function() {
-//   for(var i = 0; i < this.creatureArray.length; i++) {
-//     if(this.creatureArray[i].returnIdentity() == 3 || this.creatureArray[i].returnIdentity() == 7) {
-//       var d = this.location.distance(this.creatureArray[i].location);
-//       if(d > 0 && d < this.size) {
-//         this.grow();
-//         this.creatureArray.splice(i, 1)
-//       }
-//     }
-//   }
-// }
-//
-// Creature1.prototype.grow = function() {
-//   if(this.segmentArray.length < 10) {
-//     this.segmentArray.push(new JSVector(0, 0));
-//   }
-// }
+Creature1.prototype.eat = function() {
+  for(var i = 0; i < this.creatureArray.length; i++) {
+    if(this.creatureArray[i].returnIdentity() == 7) {
+      var d = this.location.distance(this.creatureArray[i].location);
+      if(d > 0 && d < this.radius*3) {
+        this.grow();
+        this.creatureArray.splice(i, 1)
+      }
+    }
+  }
+}
+
+Creature1.prototype.grow = function() {
+  if(this.segmentArray.length < 10) {
+    this.segmentArray.push(new JSVector(0, 0));
+  }
+}
 
 Creature1.prototype.seperate = function() {
   var sum = new JSVector(0,0);
@@ -151,7 +155,7 @@ Creature1.prototype.update = function() {
   this.updateMovement();
   this.seperate();
   this.checkEdges();
-  // this.eat();
+  this.eat();
   this.draw();
   this.drawSegments()
 }
@@ -167,8 +171,6 @@ Creature1.prototype.updateSegments = function() {
 }
 
 Creature1.prototype.drawSegments = function() { //need to look at
-  console.log("drawing segments");
-
   ctx.strokeStyle = "black";
   ctx.fillStyle = this.color;
 
