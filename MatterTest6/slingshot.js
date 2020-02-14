@@ -1,20 +1,24 @@
 var Example = Example || {};
 
+var Engine = Matter.Engine,
+    Render = Matter.Render,
+    Runner = Matter.Runner,
+    Composites = Matter.Composites,
+    Events = Matter.Events,
+    Constraint = Matter.Constraint,
+    MouseConstraint = Matter.MouseConstraint,
+    Mouse = Matter.Mouse,
+    World = Matter.World,
+    Bodies = Matter.Bodies;
+
+var engine;
+var world;
+
 Example.slingshot = function() {
-    var Engine = Matter.Engine,
-        Render = Matter.Render,
-        Runner = Matter.Runner,
-        Composites = Matter.Composites,
-        Events = Matter.Events,
-        Constraint = Matter.Constraint,
-        MouseConstraint = Matter.MouseConstraint,
-        Mouse = Matter.Mouse,
-        World = Matter.World,
-        Bodies = Matter.Bodies;
 
     // create engine
-    var engine = Engine.create(),
-        world = engine.world;
+    engine = Engine.create();
+    world = engine.world;
 
     // create renderer
     var render = Render.create({
@@ -34,8 +38,8 @@ Example.slingshot = function() {
     Runner.run(runner, engine);
 
     // add bodies
-    var ground = Bodies.rectangle(395, 600, 815, 50, { isStatic: true }),
-        rockOptions = { density: 0.004 },
+
+    var rockOptions = { density: 0.004 },
         rock = Bodies.circle(170, 450, 20, rockOptions),
         anchor = { x: 170, y: 450 },
         elastic = Constraint.create({
@@ -44,17 +48,13 @@ Example.slingshot = function() {
             stiffness: 0.05
         });
 
-    var pyramid = Composites.pyramid(500, 300, 9, 10, 0, 0, function(x, y) {
-        return Bodies.rectangle(x, y, 25, 40);
-    });
 
-    var ground2 = Bodies.rectangle(610, 250, 200, 20, { isStatic: true });
 
-    var pyramid2 = Composites.pyramid(550, 0, 5, 10, 0, 0, function(x, y) {
-        return Bodies.rectangle(x, y, 25, 40);
-    });
+    buildGrounds();
+    buildBlocks();
 
-    World.add(engine.world, [ground, pyramid, ground2, pyramid2, rock, elastic]);
+
+    World.add(engine.world, [rock, elastic]);
 
     Events.on(engine, 'afterUpdate', function() {
         if (mouseConstraint.mouse.button === -1 && (rock.position.x > 190 || rock.position.y < 430)) {
@@ -99,3 +99,26 @@ Example.slingshot = function() {
         }
     };
 };
+
+//build the grounds
+var buildGrounds = function() {
+  var ground = Bodies.rectangle(395, 600, 815, 50, { isStatic: true });
+  var ground2 = Bodies.rectangle(610, 250, 200, 20, { isStatic: true });
+  World.add(engine.world, [ground, ground2]);
+}
+
+//build the blocks
+var buildBlocks = function() {
+  var pyramid1 = Composites.pyramid(500, 300, 9, 10, 0, 0, function(x, y) {
+      return Bodies.rectangle(x, y, 25, 40);
+  });
+  var pyramid2 = Composites.pyramid(550, 0, 5, 10, 0, 0, function(x, y) {
+      return Bodies.rectangle(x, y, 25, 40);
+  });
+  World.add(engine.world, [pyramid1, pyramid2]);
+}
+
+//build the slingshot/rock composite
+var buildSlingshot = function() {
+
+}
