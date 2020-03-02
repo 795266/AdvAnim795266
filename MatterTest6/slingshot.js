@@ -13,6 +13,7 @@ var Engine = Matter.Engine,
 
 var engine;
 var world;
+var rockOptions;
 
 Example.slingshot = function() {
 
@@ -39,7 +40,7 @@ Example.slingshot = function() {
 
     // add bodies
 
-    var rockOptions = { density: 0.004 },
+    this.rockOptions = { density: 0.004 },
         rock = Bodies.circle(170, 450, 20, rockOptions),
         anchor = { x: 170, y: 450 },
         elastic = Constraint.create({
