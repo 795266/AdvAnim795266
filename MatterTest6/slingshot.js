@@ -15,7 +15,7 @@ var engine;
 var world;
 var rockOptions;
 
-Example.slingshot = function() {
+Example.init = function() {
 
     // create engine
     engine = Engine.create();
@@ -76,7 +76,6 @@ Example.slingshot = function() {
                 }
             }
         });
-
     World.add(world, mouseConstraint);
 
     // keep the mouse in sync with rendering
@@ -111,10 +110,10 @@ var buildGrounds = function() {
 //build the blocks
 var buildBlocks = function() {
   var pyramid1 = Composites.pyramid(500, 300, 9, 10, 0, 0, function(x, y) {
-      return Bodies.rectangle(x, y, 25, 40);
+      return Bodies.rectangle(x, y, 25, 40, {fillStyle: "red"});
   });
   var pyramid2 = Composites.pyramid(550, 0, 5, 10, 0, 0, function(x, y) {
-      return Bodies.rectangle(x, y, 25, 40);
+      return Bodies.rectangle(x, y, 25, 40, {fillStyle: "red"});
   });
   World.add(engine.world, [pyramid1, pyramid2]);
 }
