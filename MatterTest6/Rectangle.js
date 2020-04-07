@@ -7,6 +7,8 @@ var color;
 var rectangle
 
 function Rectangle(x, y, width, height, color, isStatic){
+  console.log("into Rectangle")
+
   this.x = x;
   this.y = y;
   this.width = width;

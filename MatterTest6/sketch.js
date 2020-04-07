@@ -33,6 +33,8 @@ Example.slingshot = function() {
     var runner = Runner.create();
     Runner.run(runner, engine);
 
+    console.log("basic check")
+
     // add bodies
     var ground = Bodies.rectangle(395, 600, 815, 50, { isStatic: true }),
         rockOptions = { density: 0.004 },
@@ -48,7 +50,7 @@ Example.slingshot = function() {
         return Bodies.rectangle(x, y, 25, 40);
     });
 
-    var ground2 = Bodies.rectangle(610, 250, 200, 20, { isStatic: true });
+    var ground2 = new Rectangle (610, 250, 200, 20, "blue", { isStatic: true });
 
     var pyramid2 = Composites.pyramid(550, 0, 5, 10, 0, 0, function(x, y) {
         return Bodies.rectangle(x, y, 25, 40);
