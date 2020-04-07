@@ -1,4 +1,4 @@
-var Example = Example || {};
+var SlingshotProject = SlingshotProject || {};
 
 var Engine = Matter.Engine,
     Render = Matter.Render,
@@ -15,7 +15,7 @@ var engine;
 var world;
 var rockOptions;
 
-Example.init = function() {
+SlingshotProject.init = function() {
 
     // create engine
     engine = Engine.create();
@@ -43,7 +43,6 @@ Example.init = function() {
 
 
     buildSlingshot();
-
     buildGrounds();
     buildBlocks();
 
@@ -102,8 +101,7 @@ var buildGrounds = function() {
 
 //build the blocks
 var buildBlocks = function() {
-  var pyramid1 = Composites.pyramid(500, 300, 9, 10, 0, 0, function(x, y) {
-      return Bodies.rectangle(x, y, 25, 40, {fillStyle: "red"});
+  var pyramid1 = new Pyramid(500, 300, 9, 10, 0, 0, function(x, y) {
   });
   var pyramid2 = Composites.pyramid(550, 0, 5, 10, 0, 0, function(x, y) {
       return Bodies.rectangle(x, y, 25, 40, {fillStyle: "red"});

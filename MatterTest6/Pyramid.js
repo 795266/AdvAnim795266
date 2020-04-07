@@ -1,3 +1,14 @@
+var Engine = Matter.Engine,
+    Render = Matter.Render,
+    Runner = Matter.Runner,
+    Composites = Matter.Composites,
+    Events = Matter.Events,
+    Constraint = Matter.Constraint,
+    MouseConstraint = Matter.MouseConstraint,
+    Mouse = Matter.Mouse,
+    World = Matter.World,
+    Bodies = Matter.Bodies;
+
 var x;
 var y;
 var rows;
@@ -11,8 +22,7 @@ function Pyramid(x, y, rows, columns, rectWidth, rectHeight){
   this.y = y;
   this.rows = rows;
   this.columns = columns;
-
-  this.pyramid = Composites(this.x, this.y, this.rows, this.columns, 0, 0, function(x, y) {
-        var n = new Rectangle(x, y, rectWidth, rectHeight);
-        return n.new;
+  this.pyramid = Composites.pyramid(this.x, this.y, this.rows, this.columns, 0, 0, function(x, y) {
+        return Bodies.rectangle(x, y, rectWidth, rectHeight, { isStatic: true });
+  })
 }
