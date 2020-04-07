@@ -40,16 +40,9 @@ Example.init = function() {
 
     // add bodies
 
-    this.rockOptions = { density: 0.004 },
-        rock = Bodies.circle(170, 450, 20, rockOptions),
-        anchor = { x: 170, y: 450 },
-        elastic = Constraint.create({
-            pointA: anchor,
-            bodyB: rock,
-            stiffness: 0.05
-        });
 
 
+    buildSlingshot();
 
     buildGrounds();
     buildBlocks();
@@ -120,5 +113,13 @@ var buildBlocks = function() {
 
 //build the slingshot/rock composite
 var buildSlingshot = function() {
-
+  this.rockOptions = { density: 0.004 },
+      rock = Bodies.circle(170, 450, 20, this.rockOptions),
+      anchor = { x: 170, y: 450 },
+      elastic = Constraint.create({
+          pointA: anchor,
+          bodyB: rock,
+          stiffness: 0.05
+      });
+    console.log("inside buildSlingshot")
 }
